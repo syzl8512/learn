@@ -1,0 +1,44 @@
+{
+  "name": "english-reading-frontend",
+  "version": "1.0.0",
+  "description": "英语分级阅读小程序前端",
+  "scripts": {
+    "dev:mp-weixin": "uni -p mp-weixin",
+    "build:mp-weixin": "uni build -p mp-weixin",
+    "dev:h5": "uni -p h5",
+    "build:h5": "uni build -p h5",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "3.0.0-4020920240930001",
+    "@dcloudio/uni-app-plus": "3.0.0-4020920240930001",
+    "@dcloudio/uni-components": "3.0.0-4020920240930001",
+    "@dcloudio/uni-h5": "3.0.0-4020920240930001",
+    "@dcloudio/uni-mp-weixin": "3.0.0-4020920240930001",
+    "@vue/tsconfig": "^0.8.1",
+    "pinia": "^2.2.8",
+    "vue": "^3.5.12"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "^3.4.13",
+    "@dcloudio/uni-cli-shared": "3.0.0-4020920240930001",
+    "@dcloudio/uni-stacktracey": "3.0.0-4020920240930001",
+    "@dcloudio/vite-plugin-uni": "3.0.0-4020920240930001",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "@vitejs/plugin-vue": "^5.2.4",
+    "@vue/runtime-core": "^3.5.12",
+    "eslint": "^9.15.0",
+    "eslint-plugin-vue": "^9.30.0",
+    "sass": "^1.81.0",
+    "sass-loader": "^16.0.3",
+    "typescript": "^5.6.3",
+    "unocss": "^0.64.1",
+    "vite": "^5.4.21",
+    "vue-tsc": "^2.1.10"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

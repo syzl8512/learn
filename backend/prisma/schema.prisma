@@ -1,0 +1,344 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// 用户表 - 包含蓝斯值和学习进度
+model User {
+  id                String              @id @default(cuid())
+  email             String?             @unique
+  wechatId          String?             @unique
+  nickname          String?
+  avatar            String?
+  lexileScore       Float?
+  lexileLevel       String?
+  lexileUpdatedAt   DateTime?
+  role              String              @default("student")
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  bookmarks         Bookmark[]
+  listeningHistory  ListeningHistory[]
+  readingProgress   ReadingProgress[]
+  credential        UserCredential?
+  lexileAssessments UserLexileHistory[]
+  vocabulary        Vocabulary[]
+
+  @@index([email])
+  @@index([wechatId])
+  @@index([lexileScore])
+  @@map("users")
+}
+
+/// 用户凭证表 - 保存账号密码等敏感信息
+model UserCredential {
+  id           String   @id @default(cuid())
+  userId       String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_credentials")
+}
+
+/// 用户蓝斯值评估历史表
+model UserLexileHistory {
+  id               String   @id @default(cuid())
+  userId           String
+  assessmentMethod String
+  minLexile        Float?
+  maxLexile        Float?
+  averageLexile    Float
+  recommendedLevel String
+  inputContent     String?
+  analysisResult   Json?
+  createdAt        DateTime @default(now())
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@map("user_lexile_history")
+}
+
+/// 书籍表
+model Book {
+  id             String    @id @default(cuid())
+  title          String
+  author         String?
+  description    String?
+  coverUrl       String?
+  originalLexile Float?
+  lexileRange    String?
+  category       String?
+  tags           String?
+  recommendedAge String?
+  status         String    @default("draft")
+  publishedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  chapters       Chapter[]
+
+  @@index([title])
+  @@index([originalLexile])
+  @@index([status])
+  @@map("books")
+}
+
+/// 章节表
+model Chapter {
+  id              String            @id @default(cuid())
+  bookId          String
+  sequenceNumber  Int
+  title           String
+  audioUrl        String?
+  audioGenerated  Boolean           @default(false)
+  audioMetadata   Json?
+  status          String            @default("draft")
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  bookmarks       Bookmark[]
+  chapterContents ChapterContent[]
+  book            Book              @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  extractedTopics ExtractedTopic[]
+  readingProgress ReadingProgress[]
+
+  @@unique([bookId, sequenceNumber])
+  @@index([bookId])
+  @@map("chapters")
+}
+
+/// 章节内容表 - 支持多版本 (原文/初级/KET/PET)
+model ChapterContent {
+  id                   String    @id @default(cuid())
+  chapterId            String
+  version              String
+  content              String
+  wordCount            Int?
+  sentenceCount        Int?
+  estimatedLexile      Float?
+  estimatedReadingTime Int?
+  processedBy          String?
+  processedAt          DateTime?
+  processingLog        Json?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  chapter              Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([chapterId, version])
+  @@index([chapterId])
+  @@map("chapter_contents")
+}
+
+/// 提取的话题表 - 从书籍内容自动提取
+model ExtractedTopic {
+  id                  String   @id @default(cuid())
+  chapterId           String
+  topicName           String
+  description         String?
+  category            String
+  keywords            Json
+  relatedListeningIds Json?
+  createdAt           DateTime @default(now())
+  chapter             Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@index([chapterId, category])
+  @@map("extracted_topics")
+}
+
+/// 听力内容表 - 支持批量导入
+model ListeningContent {
+  id               String             @id @default(cuid())
+  title            String
+  description      String?
+  category         String
+  difficulty       String
+  lexileLevel      Float?
+  contentType      String
+  durationSeconds  Int
+  audioUrl         String
+  transcript       String
+  translation      String?
+  subtitles        Json?
+  keywords         Json?
+  importBatchId    String?
+  importedFrom     String?
+  importedAt       DateTime?
+  importedBy       String?
+  status           String             @default("draft")
+  publishedAt      DateTime?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  listeningHistory ListeningHistory[]
+
+  @@index([category, difficulty])
+  @@index([importBatchId])
+  @@index([status])
+  @@map("listening_contents")
+}
+
+/// 听力学习历史表
+model ListeningHistory {
+  id                   String           @id @default(cuid())
+  userId               String
+  listeningId          String
+  listeningTimeSeconds Int
+  completed            Boolean          @default(false)
+  completedAt          DateTime?
+  playbackSpeed        Float            @default(1.0)
+  score                Int?
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+  listening            ListeningContent @relation(fields: [listeningId], references: [id], onDelete: Cascade)
+  user                 User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, listeningId])
+  @@index([userId])
+  @@index([completedAt])
+  @@map("listening_history")
+}
+
+/// 生词本表
+model Vocabulary {
+  id                 String    @id @default(cuid())
+  userId             String
+  word               String
+  pronunciation      String?
+  partOfSpeech       String?
+  englishDefinition  String?
+  chineseTranslation String
+  exampleSentence    String?
+  exampleTranslation String?
+  synonyms           Json?
+  antonyms           Json?
+  lexileLevel        Float?
+  sourceType         String?
+  sourceChapterId    String?
+  sourceListeningId  String?
+  mastered           Boolean   @default(false)
+  masteredAt         DateTime?
+  nextReviewAt       DateTime?
+  reviewCount        Int       @default(0)
+  notes              String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, word])
+  @@index([userId, mastered])
+  @@index([nextReviewAt])
+  @@map("vocabulary")
+}
+
+/// 词汇难度表
+model VocabularyDifficulty {
+  id          String   @id @default(cuid())
+  word        String   @unique
+  difficulty  String
+  lexileLevel Int
+  frequency   Float
+  isCommon    Boolean  @default(false)
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([word])
+  @@index([difficulty])
+  @@index([lexileLevel])
+  @@map("vocabulary_difficulty")
+}
+
+/// 阅读进度表
+model ReadingProgress {
+  id                   String   @id @default(cuid())
+  userId               String
+  chapterId            String
+  currentPosition      Int
+  completionPercentage Float    @default(0)
+  totalReadingSeconds  Int      @default(0)
+  currentVersion       String   @default("original")
+  wordsLearned         Int      @default(0)
+  lastReadAt           DateTime @default(now())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+  chapter              Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chapterId])
+  @@index([userId])
+  @@index([lastReadAt])
+  @@map("reading_progress")
+}
+
+/// 书签表
+model Bookmark {
+  id        String   @id @default(cuid())
+  userId    String
+  chapterId String
+  position  Int
+  note      String?
+  createdAt DateTime @default(now())
+  chapter   Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, chapterId])
+  @@map("bookmarks")
+}
+
+/// 批量导入任务表
+model ImportBatch {
+  id           String    @id @default(cuid())
+  importType   String
+  fileName     String
+  fileUrl      String?
+  fileSize     Int?
+  totalRows    Int
+  successCount Int       @default(0)
+  failureCount Int       @default(0)
+  pendingCount Int       @default(0)
+  progress     Float     @default(0)
+  status       String    @default("pending")
+  errors       Json?
+  importedBy   String
+  startedAt    DateTime?
+  completedAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([status])
+  @@index([importedBy])
+  @@index([createdAt])
+  @@map("import_batches")
+}
+
+/// 管理员操作日志表
+model AdminLog {
+  id         String   @id @default(cuid())
+  adminId    String
+  adminName  String?
+  action     String
+  resource   String
+  resourceId String?
+  details    Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([adminId])
+  @@index([action, resource])
+  @@index([createdAt])
+  @@map("admin_logs")
+}
+
+/// 系统配置表
+model SystemConfig {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       Json
+  description String?
+  updatedAt   DateTime @updatedAt
+
+  @@map("system_configs")
+}
