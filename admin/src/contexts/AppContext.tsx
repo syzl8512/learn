@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, ReactNode, useCallback, useMemo } from 'react';
 import type { BreadcrumbItem, MenuItem } from '@/types/common';
 
 // 应用状态类型
@@ -201,73 +201,74 @@ interface AppProviderProps {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
 
-  // 侧边栏操作
-  const toggleSidebar = (): void => {
+  // 侧边栏操作（使用 useCallback 缓存）
+  const toggleSidebar = useCallback((): void => {
     dispatch({ type: 'TOGGLE_SIDEBAR' });
-  };
+  }, []);
 
-  const setSidebarCollapsed = (collapsed: boolean): void => {
+  const setSidebarCollapsed = useCallback((collapsed: boolean): void => {
     dispatch({ type: 'SET_SIDEBAR_COLLAPSED', payload: collapsed });
-  };
+  }, []);
 
-  // 面包屑操作
-  const setBreadcrumbs = (breadcrumbs: BreadcrumbItem[]): void => {
+  // 面包屑操作（使用 useCallback 缓存）
+  const setBreadcrumbs = useCallback((breadcrumbs: BreadcrumbItem[]): void => {
     dispatch({ type: 'SET_BREADCRUMBS', payload: breadcrumbs });
-  };
+  }, []);
 
-  const addBreadcrumb = (breadcrumb: BreadcrumbItem): void => {
+  const addBreadcrumb = useCallback((breadcrumb: BreadcrumbItem): void => {
     dispatch({ type: 'ADD_BREADCRUMB', payload: breadcrumb });
-  };
+  }, []);
 
-  // 页面操作
-  const setPageTitle = (title: string): void => {
+  // 页面操作（使用 useCallback 缓存）
+  const setPageTitle = useCallback((title: string): void => {
     dispatch({ type: 'SET_PAGE_TITLE', payload: title });
-  };
+  }, []);
 
-  const setPageDescription = (description: string): void => {
+  const setPageDescription = useCallback((description: string): void => {
     dispatch({ type: 'SET_PAGE_DESCRIPTION', payload: description });
-  };
+  }, []);
 
-  const setPageLoading = (loading: boolean): void => {
+  const setPageLoading = useCallback((loading: boolean): void => {
     dispatch({ type: 'SET_PAGE_LOADING', payload: loading });
-  };
+  }, []);
 
-  // 全屏操作
-  const toggleFullscreen = (): void => {
+  // 全屏操作（使用 useCallback 缓存）
+  const toggleFullscreen = useCallback((): void => {
     dispatch({ type: 'TOGGLE_FULLSCREEN' });
-  };
+  }, []);
 
-  const setFullscreen = (fullscreen: boolean): void => {
+  const setFullscreen = useCallback((fullscreen: boolean): void => {
     dispatch({ type: 'SET_FULLSCREEN', payload: fullscreen });
-  };
+  }, []);
 
-  // 通知操作
-  const setNotificationCount = (count: number): void => {
+  // 通知操作（使用 useCallback 缓存）
+  const setNotificationCount = useCallback((count: number): void => {
     dispatch({ type: 'SET_NOTIFICATION_COUNT', payload: count });
-  };
+  }, []);
 
-  const incrementNotificationCount = (): void => {
+  const incrementNotificationCount = useCallback((): void => {
     dispatch({ type: 'INCREMENT_NOTIFICATION_COUNT' });
-  };
+  }, []);
 
-  const decrementNotificationCount = (): void => {
+  const decrementNotificationCount = useCallback((): void => {
     dispatch({ type: 'DECREMENT_NOTIFICATION_COUNT' });
-  };
+  }, []);
 
-  // 菜单操作
-  const setSelectedMenu = (key: string): void => {
+  // 菜单操作（使用 useCallback 缓存）
+  const setSelectedMenu = useCallback((key: string): void => {
     dispatch({ type: 'SET_SELECTED_MENU', payload: key });
-  };
+  }, []);
 
-  const setOpenMenus = (keys: string[]): void => {
+  const setOpenMenus = useCallback((keys: string[]): void => {
     dispatch({ type: 'SET_OPEN_MENUS', payload: keys });
-  };
+  }, []);
 
-  const toggleMenu = (key: string): void => {
+  const toggleMenu = useCallback((key: string): void => {
     dispatch({ type: 'TOGGLE_MENU', payload: key });
-  };
+  }, []);
 
-  const value: AppContextType = {
+  // 使用 useMemo 缓存 context value
+  const value: AppContextType = useMemo(() => ({
     state,
     toggleSidebar,
     setSidebarCollapsed,
@@ -284,7 +285,24 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     setSelectedMenu,
     setOpenMenus,
     toggleMenu,
-  };
+  }), [
+    state,
+    toggleSidebar,
+    setSidebarCollapsed,
+    setBreadcrumbs,
+    addBreadcrumb,
+    setPageTitle,
+    setPageDescription,
+    setPageLoading,
+    toggleFullscreen,
+    setFullscreen,
+    setNotificationCount,
+    incrementNotificationCount,
+    decrementNotificationCount,
+    setSelectedMenu,
+    setOpenMenus,
+    toggleMenu,
+  ]);
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

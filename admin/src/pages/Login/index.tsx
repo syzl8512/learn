@@ -34,28 +34,39 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: LoginForm): Promise<void> => {
     setLoading(true);
     try {
-      // 简化的登录逻辑 - 支持演示账号
-      if (values.username === 'admin' && values.password === 'admin123') {
-        const mockUser = {
-          id: 1,
-          username: 'admin',
-          email: 'admin@reading-app.com',
-          role: 'admin'
-        };
+      // 调用后端登录 API
+      const response = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          // 后端期望 email 字段,这里支持用户名和邮箱登录
+          email: values.username.includes('@') ? values.username : `${values.username}@reading-app.com`,
+          password: values.password,
+        }),
+      });
 
-        // 保存到localStorage
-        const token = 'demo-token-' + Date.now();
-        localStorage.setItem('admin_token', token);
-        localStorage.setItem('admin_user', JSON.stringify(mockUser));
+      const data = await response.json();
+
+      if (response.ok && data.accessToken) {
+        // 保存 token 和用户信息到 localStorage
+        localStorage.setItem('admin_token', data.accessToken);
+        localStorage.setItem('admin_user', JSON.stringify(data.user));
+        if (data.refreshToken) {
+          localStorage.setItem('admin_refresh_token', data.refreshToken);
+        }
+
+        message.success('登录成功');
 
         // 刷新页面让 AuthContext 重新初始化状态
         window.location.href = '/dashboard';
       } else {
-        message.error('用户名或密码错误');
+        message.error(data.message || '用户名或密码错误');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login failed:', error);
-      message.error('登录失败，请重试');
+      message.error(error.message || '登录失败，请检查网络连接或后端服务是否启动');
     } finally {
       setLoading(false);
     }

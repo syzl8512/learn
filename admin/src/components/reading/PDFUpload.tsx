@@ -18,8 +18,6 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [uploadResult, setUploadResult] = useState<PdfUploadResponse | null>(null);
-  const [extracting, setExtracting] = useState(false);
   const [form] = Form.useForm();
 
   // 文件上传前验证
@@ -30,21 +28,24 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
       return false;
     }
 
-    const isLt50M = file.size / 1024 / 1024 < 50;
-    if (!isLt50M) {
-      message.error('文件大小不能超过50MB!');
+    const isLt100M = file.size / 1024 / 1024 < 100;
+    if (!isLt100M) {
+      message.error('文件大小不能超过100MB!');
       return false;
     }
 
     setUploadedFile(file);
-    setUploadResult(null);
+    // 自动填充文件名作为标题
+    form.setFieldsValue({
+      title: file.name.replace('.pdf', ''),
+    });
     return false; // 阻止自动上传
   };
 
-  // 手动上传文件
-  const handleUpload = async () => {
+  // 上传书籍（一步完成）
+  const handleUploadBook = async (values: any) => {
     if (!uploadedFile) {
-      message.error('请先选择文件');
+      message.error('请先选择PDF文件');
       return;
     }
 
@@ -52,65 +53,40 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
       setUploading(true);
       setUploadProgress(0);
 
-      const response = await bookService.uploadPdf(uploadedFile, (progressEvent) => {
-        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-        setUploadProgress(progress);
-      });
+      const bookData = {
+        title: values.title,
+        author: values.author,
+        category: values.category,
+        difficulty: values.difficulty,
+        description: values.description,
+      };
 
-      if (response.data.success) {
-        setUploadResult(response.data.data);
-        message.success('文件上传成功!');
+      const response = await bookService.uploadPdf(
+        uploadedFile,
+        bookData,
+        (progressEvent) => {
+          const progress = Math.round((progressEvent.loaded * 100) / (progressEvent.total || progressEvent.loaded));
+          setUploadProgress(progress);
+        }
+      );
+
+      if (response.data.success || response.data) {
+        message.success('书籍上传成功，正在后台处理PDF内容...');
+        onSuccess(response.data.data || response.data);
       } else {
         throw new Error(response.data.message || '上传失败');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Upload failed:', error);
-      message.error('文件上传失败，请重试');
+      message.error(error.message || '书籍上传失败，请重试');
     } finally {
       setUploading(false);
-    }
-  };
-
-  // 创建书籍
-  const handleCreateBook = async (values: any) => {
-    if (!uploadResult) {
-      message.error('请先上传文件');
-      return;
-    }
-
-    try {
-      setExtracting(true);
-
-      const bookData = {
-        title: values.title || uploadedFile?.name.replace('.pdf', ''),
-        author: values.author || '未知作者',
-        category: values.category || '其他',
-        difficulty: values.difficulty || 3,
-        description: values.description,
-        pdfUrl: uploadResult.fileUrl,
-        status: 'processing' as const,
-      };
-
-      const response = await bookService.createBook(bookData);
-
-      if (response.data.success) {
-        message.success('书籍创建成功，正在处理PDF内容...');
-        onSuccess(response.data.data);
-      } else {
-        throw new Error(response.data.message || '创建失败');
-      }
-    } catch (error) {
-      console.error('Create book failed:', error);
-      message.error('创建书籍失败，请重试');
-    } finally {
-      setExtracting(false);
     }
   };
 
   // 重置上传
   const handleReset = () => {
     setUploadedFile(null);
-    setUploadResult(null);
     setUploadProgress(0);
     form.resetFields();
   };
@@ -119,7 +95,7 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
     <div className={styles.pdfUpload}>
       <div className={styles.uploadSection}>
         <Title level={4}>上传PDF文件</Title>
-        <Text type="secondary">支持PDF格式，文件大小不超过50MB</Text>
+        <Text type="secondary">支持PDF格式，文件大小不超过100MB</Text>
 
         <Dragger
           name="file"
@@ -134,7 +110,7 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
           </p>
           <p className="ant-upload-text">点击或拖拽文件到此区域上传</p>
           <p className="ant-upload-hint">
-            支持单个PDF文件上传，文件大小不超过50MB
+            支持单个PDF文件上传，文件大小不超过100MB
           </p>
         </Dragger>
 
@@ -160,45 +136,16 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
             <Text type="secondary">正在上传文件...</Text>
           </div>
         )}
-
-        {uploadResult && (
-          <Alert
-            message="文件上传成功"
-            description={`文件已成功上传到服务器，正在准备提取内容`}
-            type="success"
-            showIcon
-            className={styles.successAlert}
-          />
-        )}
-
-        <div className={styles.uploadActions}>
-          <Space>
-            <Button
-              type="primary"
-              icon={<UploadOutlined />}
-              onClick={handleUpload}
-              disabled={!uploadedFile || uploading}
-              loading={uploading}
-              style={{ backgroundColor: '#8B5CF6', borderColor: '#8B5CF6' }}
-            >
-              {uploading ? '上传中...' : '开始上传'}
-            </Button>
-            <Button onClick={handleReset} disabled={uploading}>
-              重新选择
-            </Button>
-          </Space>
-        </div>
       </div>
 
-      {uploadResult && (
+      {uploadedFile && !uploading && (
         <div className={styles.bookFormSection}>
           <Title level={4}>书籍信息</Title>
           <Form
             form={form}
             layout="vertical"
-            onFinish={handleCreateBook}
+            onFinish={handleUploadBook}
             initialValues={{
-              title: uploadedFile?.name.replace('.pdf', ''),
               category: '其他',
               difficulty: 3,
             }}
@@ -262,12 +209,16 @@ const PDFUpload: React.FC<PDFUploadProps> = ({ onSuccess, onCancel }) => {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  loading={extracting}
+                  loading={uploading}
+                  icon={<UploadOutlined />}
                   style={{ backgroundColor: '#8B5CF6', borderColor: '#8B5CF6' }}
                 >
-                  {extracting ? '处理中...' : '创建书籍'}
+                  {uploading ? '上传中...' : '上传书籍'}
                 </Button>
-                <Button onClick={onCancel}>
+                <Button onClick={handleReset} disabled={uploading}>
+                  重新选择
+                </Button>
+                <Button onClick={onCancel} disabled={uploading}>
                   取消
                 </Button>
               </Space>

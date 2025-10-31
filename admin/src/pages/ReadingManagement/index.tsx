@@ -27,19 +27,20 @@ const ReadingManagement: React.FC = () => {
   useEffect(() => {
     setPageTitle('阅读书籍管理');
     setPageDescription('管理英文原版书籍、章节和版本');
-    fetchBooks();
-  }, [setPageTitle, setPageDescription]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 只在组件挂载时执行一次
 
   // 获取书籍列表
   const fetchBooks = async () => {
     try {
       setLoading(true);
       const response = await bookService.getBooks(searchParams);
-      const { data } = response;
+      console.log('Books API Response:', response.data);
 
-      if (data.success && data.data) {
-        setBooks(data.data.items);
-        setTotal(data.data.total);
+      // 后端返回格式: { data: [...], meta: { total, page, limit } }
+      if (response.data && response.data.data) {
+        setBooks(response.data.data);
+        setTotal(response.data.meta?.total || 0);
       }
     } catch (error) {
       console.error('Failed to fetch books:', error);
@@ -52,7 +53,7 @@ const ReadingManagement: React.FC = () => {
   // 处理搜索参数变化
   useEffect(() => {
     fetchBooks();
-  }, [searchParams]);
+  }, [searchParams.page, searchParams.pageSize, searchParams.search, searchParams.category]);
 
   // 表格列定义
   const columns = [

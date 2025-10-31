@@ -29,7 +29,7 @@ import {
   FileTextOutlined,
   RocketOutlined,
   SettingOutlined,
-  CompareOutlined,
+  SwapOutlined,
 } from '@ant-design/icons';
 import type { Book, Chapter, ChapterVersion } from '@/types/books';
 import { bookService } from '@services';
@@ -360,7 +360,7 @@ const VersionManager: React.FC<VersionManagerProps> = ({ book, onClose }) => {
         </div>
         <Space>
           <Button
-            icon={<CompareOutlined />}
+            icon={<SwapOutlined />}
             onClick={handleCompareVersions}
             disabled={selectedVersions.length !== 2}
             className={styles.compareButton}

@@ -28,11 +28,18 @@ export const bookService = {
     return request.delete(`/books/${id}`);
   },
 
-  // 上传PDF
-  uploadPdf: (file: File, onProgress?: (progressEvent: any) => void) => {
+  // 上传PDF（完整上传，包含书籍信息）
+  uploadPdf: (file: File, bookData: Partial<Book>, onProgress?: (progressEvent: any) => void) => {
     const formData = new FormData();
     formData.append('file', file);
-    return request.upload<PdfUploadResponse>('/books/upload-pdf', formData, onProgress);
+    formData.append('title', bookData.title || '');
+    formData.append('author', bookData.author || '');
+    formData.append('category', bookData.category || '');
+    formData.append('difficulty', String(bookData.difficulty || 3));
+    if (bookData.description) {
+      formData.append('description', bookData.description);
+    }
+    return request.upload<PdfUploadResponse>('/books/upload', formData, onProgress);
   },
 
   // 章节管理
