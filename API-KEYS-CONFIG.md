@@ -17,7 +17,7 @@
 **TTS 参考**: https://www.modelscope.cn/studios/JuilynCelsia/Transcriptions  
 **优势**: 免费额度充足，质量优秀，中英文都强
 
-### 2. 智谱 GLM-4（AI 评估 - 备选）
+### 2. 智谱 GLM-4.6（AI 评估 - 备选）
 **用途**: Lexile AI 评估备选方案  
 **优先级**: P1  
 **API Key**: `3034d24c0ec44dc1a81836fc55b4b494.1ODx3pKnQFvxq6na`  
@@ -58,9 +58,9 @@ MODELSCOPE_API_URL=https://dashscope.aliyuncs.com/api/v1/services/aigc/text-gene
 MODELSCOPE_MODEL=qwen-max
 
 # 智谱 GLM-4（备选）
-ZHIPU_API_KEY=3034d24c0ec44dc1a81836fc55b4b494.1ODx3pKnQFvxq6na
+ZHIPU_API_KEY=5c136aa46a2647f797db173a2884afac.BfrurduWQydSeBF4
 ZHIPU_API_URL=https://open.bigmodel.cn/api/anthropic
-ZHIPU_MODEL=glm-4
+ZHIPU_MODEL=glm-4.6
 
 # DeepSeek（备选）
 DEEPSEEK_API_KEY=sk-45085eef55684544a77ba6f24b23ca9d
