@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Typography, Row, Col, Tag, Button, Space, Divider, Alert } from 'antd';
 import { DiffOutlined, SwapOutlined, EyeOutlined } from '@ant-design/icons';
-import { ChapterVersion } from '@types/books';
+import type { ChapterVersion } from '@/types/books';
 import styles from './VersionComparison.module.scss';
 
 const { Title, Text, Paragraph } = Typography;

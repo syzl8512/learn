@@ -8,8 +8,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 
 - **目标用户**: 6-12 岁儿童
 - **核心价值**: 使用 AI 将原版英文内容自动难度适配（按蓝斯值/Lexile）
-- **当前状态**: 后端服务完整保留，前端和管理后台已清空待重建
-- **技术架构**: NestJS 后端 + PostgreSQL + Redis + Docker
+- **当前状态**: 后端服务完整保留，前端（Vue 3）和管理后台（React）已重建基础框架
+- **技术架构**: NestJS 后端 + PostgreSQL + Redis + Docker + Vue 3 + React
 
 ## 项目当前状态
 
@@ -19,9 +19,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 - **AI 服务管道**: PDF 转换、AI 评估、TTS 语音等
 - **Docker 环境**: PostgreSQL + Redis 容器化部署
 
-### ❌ 需重建
-- **前端应用**: uni-app 框架已配置，但 src 目录已清空
-- **管理后台**: React 管理后台目录已完全删除
+### 🔄 进行中
+- **前端应用**: Vue 3 + TypeScript 基础框架已搭建，包含核心页面和状态管理
+- **管理后台**: React + TypeScript 基础框架已搭建，包含管理员登录和布局组件
 
 ## 核心技术栈
 
@@ -32,6 +32,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with th
 - **认证**: JWT + 微信登录
 - **缓存**: Redis + Bull 队列
 - **API 文档**: Swagger/OpenAPI（访问 `http://localhost:3000/api-docs`）
+
+### 前端（Vue 3 + TypeScript）
+- **框架**: Vue 3.5.x，基于 Composition API
+- **状态管理**: Pinia 2.x
+- **路由**: Vue Router 4.x
+- **构建工具**: Vite 6.x
+- **UI 框架**: Element Plus 2.x
+- **HTTP 客户端**: Axios 1.x
+
+### 管理后台（React 18 + TypeScript）
+- **框架**: React 18.x，函数式组件
+- **状态管理**: React Context
+- **路由**: React Router 6.x
+- **构建工具**: Vite 6.x
+- **UI 框架**: Ant Design 5.x
+- **HTTP 客户端**: Axios 1.x
 
 ### 基础设施
 - **Docker**: PostgreSQL + Redis 容器
@@ -93,10 +109,30 @@ npm run start:prod
 npm run create-admin
 ```
 
+### 前端开发
+```bash
+cd frontend
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev                     # 开发模式（热重载）
+npm run preview                 # 预览构建结果
+
+# 代码质量检查
+npm run lint                    # ESLint 检查
+npm run type-check              # TypeScript 类型检查
+
+# 构建
+npm run build                   # 构建生产版本
+```
+
 **访问地址**:
 - API 服务: `http://localhost:3000`
 - Swagger 文档: `http://localhost:3000/api-docs`
 - Prisma Studio: `http://localhost:5555`
+- 前端应用: `http://localhost:5173`
 
 ### 环境变量配置
 
@@ -129,6 +165,50 @@ MINERU_API_KEY=your-mineru-key
 # TTS 服务
 ALIYUN_TTS_ACCESS_KEY_ID=your-key
 ALIYUN_TTS_ACCESS_KEY_SECRET=your-secret
+```
+
+#### 前端 (`frontend/.env`)
+```env
+# API 地址
+VITE_API_BASE_URL=http://localhost:3000/api
+
+# 应用配置
+VITE_APP_TITLE=智慧儿童英文阅读平台
+VITE_APP_VERSION=1.0.0
+```
+
+## 架构概览
+
+### 前端架构（Vue 3）
+```
+frontend/src/
+├── components/          # 可复用组件
+├── views/              # 页面组件
+│   ├── HomeView.vue    # 首页
+│   ├── ReadingView.vue # 阅读页面
+│   ├── ListeningView.vue # 听力页面
+│   └── VocabularyView.vue # 生词管理
+├── stores/             # Pinia 状态管理
+│   ├── user.ts         # 用户状态
+│   ├── book.ts         # 书籍状态
+│   ├── vocabulary.ts   # 生词状态
+│   └── listening.ts    # 听力状态
+├── services/           # API 服务层
+├── types/              # TypeScript 类型定义
+├── router/             # 路由配置
+└── styles/             # 样式文件
+```
+
+### 管理后台架构（React）
+```
+admin-dashboard/src/
+├── components/         # 可复用组件
+├── pages/              # 页面组件
+├── services/           # API 服务层
+├── hooks/              # 自定义 Hooks
+├── utils/              # 工具函数
+├── types/              # TypeScript 类型定义
+└── styles/             # 样式文件
 ```
 
 ## 后端架构概览
@@ -179,6 +259,19 @@ backend/src/
 3. 使用 `@UseGuards(JwtAuthGuard)` 标记需认证的路由
 4. 通过 Swagger 装饰器（`@ApiOperation`、`@ApiResponse` 等）自动生成文档
 
+### 前端开发流程
+1. **新增页面**: 在 `frontend/src/views/` 创建 Vue 组件
+2. **状态管理**: 在 `frontend/src/stores/` 创建 Pinia store
+3. **API 服务**: 在 `frontend/src/services/` 添加 API 调用
+4. **路由配置**: 在 `frontend/src/router/index.ts` 添加路由
+5. **类型定义**: 在 `frontend/src/types/` 添加 TypeScript 类型
+
+### 管理后台开发流程
+1. **新增页面**: 在 `admin-dashboard/src/pages/` 创建 React 组件
+2. **API 服务**: 在 `admin-dashboard/src/services/` 添加 API 调用
+3. **路由配置**: 在路由文件中添加新路由
+4. **类型定义**: 在 `admin-dashboard/src/types/` 添加 TypeScript 类型
+
 ### 调试后端服务
 ```bash
 # 方式一：使用命令行调试
@@ -226,18 +319,27 @@ cd backend && npm run prisma:seed  # 导入示例数据
   （3）每层文件夹中的文件，尽可能不超过 8 个。如有超过，需要规划为多层子文件夹
 • 时刻关注优雅的架构设计，避免代码坏味道
 
-### Python
+### Vue 3 / TypeScript
 • 数据结构尽可能全部定义成强类型
-• Python 虚拟环境永远使用 .venv 作为目录名
-• 必须使用 uv，而不是 pip、poetry、conda、python3、python
+• 优先使用 Composition API 而不是 Options API
+• 组件文件保持在 300 行以内
+• 使用 Pinia 进行状态管理
+• 使用 Element Plus 作为主要 UI 框架
 
-### uni-app / Vue 3
-• 使用 uni-app 3.x 框架，基于 Vue 3
-• 状态管理使用 Pinia
-• UI 框架使用 uni-ui + 自定义组件
-• 支持微信小程序和 H5 双平台
+### React / TypeScript
+• 数据结构尽可能全部定义成强类型
+• 优先使用函数式组件和 Hooks
+• 组件文件保持在 400 行以内
+• 使用 Ant Design 作为主要 UI 框架
+• 使用 React Context 进行全局状态管理
+
+### 通用开发规范
+• 所有 API 调用都要有错误处理
+• 使用 TypeScript 严格模式
+• 保持代码文件简洁，超过行数限制时拆分组件
+• 统一使用中文进行注释和文档编写
 
 ---
 
-**最后更新**: 2025-10-30 (代码库清理后更新)
-**项目状态**: 后端完整保留，前端和管理后台待重建
+**最后更新**: 2025-10-31 (架构文档优化更新)
+**项目状态**: 后端完整保留，前端（Vue 3）和管理后台（React）基础框架已搭建

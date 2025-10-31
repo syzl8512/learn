@@ -14,7 +14,7 @@ import {
   ClockCircleOutlined
 } from '@ant-design/icons';
 import { useApp } from '@contexts/AppContext';
-import { Book, BookSearchParams } from '@types/books';
+import type { Book, BookSearchParams } from '@/types/books';
 import { bookService } from '@services';
 import PDFUpload from '@components/reading/PDFUpload';
 import BookList from '@components/reading/BookList';

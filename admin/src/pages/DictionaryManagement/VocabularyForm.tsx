@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Select, Button, Space, message, Row, Col, Divider, Tag } from 'antd';
 import { PlusOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
-import { Vocabulary } from '@types/dictionary';
+import { Vocabulary } from '@/types/dictionary';
 import { dictionaryService } from '@services';
 import styles from './VocabularyForm.module.scss';
 

@@ -44,7 +44,7 @@ import {
   DeleteOutlined,
   ReloadOutlined
 } from '@ant-design/icons';
-import { ListeningMaterial } from '@types/listening';
+import { ListeningMaterial } from '@/types/listening';
 import { listeningService } from '@services';
 import styles from './AudioMatcher.module.scss';
 

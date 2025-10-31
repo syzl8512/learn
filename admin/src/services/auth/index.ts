@@ -1,5 +1,5 @@
 import { request } from '@services/api';
-import { LoginForm, LoginResponse, AdminUser } from '../../types/common';
+import type { LoginForm, LoginResponse, AdminUser } from '@/types/common';
 
 export const authService = {
   // 管理员登录

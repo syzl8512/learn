@@ -31,7 +31,7 @@ import {
   SettingOutlined,
   CompareOutlined,
 } from '@ant-design/icons';
-import { Book, Chapter, ChapterVersion } from '@types/books';
+import type { Book, Chapter, ChapterVersion } from '@/types/books';
 import { bookService } from '@services';
 import VersionComparison from './VersionComparison';
 import styles from './VersionManager.module.scss';

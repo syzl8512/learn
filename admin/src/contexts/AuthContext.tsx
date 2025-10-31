@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { message } from 'antd';
-import { AdminUser, LoginForm, LoginResponse } from '../types/common';
+import type { AdminUser, LoginForm, LoginResponse } from '@/types/common';
 import { authService } from '@services';
 
 // 认证状态类型
@@ -178,7 +178,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         localStorage.setItem('admin_user', JSON.stringify(data.data));
       }
     } catch (error: any) {
-      console.error('Get current user error:', error);
+      // 网络错误（后端未启动）时静默处理，不输出错误日志
+      if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
+        // 静默处理网络错误，不输出日志
+        // 这通常发生在后端服务未启动时，应用仍应能正常运行
+        return;
+      }
+
+      // 只在非网络错误时输出日志
+      if (error.response?.status !== 401) {
+        console.error('Get current user error:', error);
+      }
 
       // 如果获取用户信息失败，可能是token过期，清除认证状态
       if (error.response?.status === 401) {
@@ -240,7 +250,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
           // 在后台验证token是否仍然有效，不阻塞UI，不显示loading
           getCurrentUser(false).catch((error) => {
-            console.error('Validate token error:', error);
+            // 静默处理后台验证错误（后端可能未启动）
+            // console.error('Validate token error:', error);
             // 如果验证失败，getCurrentUser 内部会处理清除逻辑
           });
         } catch (error) {

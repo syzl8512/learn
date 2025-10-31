@@ -35,7 +35,7 @@ import {
   LinkOutlined
 } from '@ant-design/icons';
 import { listeningService } from '@services';
-import { FeishuRecord } from '@types/listening';
+import { FeishuRecord } from '@/types/listening';
 import styles from './FeishuSync.module.scss';
 
 const { Title, Paragraph, Text } = Typography;

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Upload, Button, Progress, Alert, Typography, Space, Form, Input, Select, message } from 'antd';
 import { InboxOutlined, UploadOutlined, FileTextOutlined } from '@ant-design/icons';
 import { bookService } from '@services';
-import { Book, PdfUploadResponse } from '@types/books';
+import type { Book, PdfUploadResponse } from '@/types/books';
 import styles from './PDFUpload.module.scss';
 
 const { Dragger } = Upload;

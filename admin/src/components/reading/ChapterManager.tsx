@@ -30,7 +30,7 @@ import {
   SettingOutlined,
   UploadOutlined,
 } from '@ant-design/icons';
-import { Book, Chapter, ChapterSearchParams } from '@types/books';
+import type { Book, Chapter, ChapterSearchParams } from '@/types/books';
 import { bookService } from '@services';
 import ChapterForm from './ChapterForm';
 import ChapterContentEditor from './ChapterContentEditor';

@@ -1,5 +1,5 @@
 import { request } from './api';
-import {
+import type {
   Word,
   DictionaryStats,
   DictionarySearchOptions,
@@ -7,7 +7,7 @@ import {
   TranslationResult,
   VocabularyBatch,
   WordImportResult,
-} from '../pages/dictionary/types';
+} from '@/types/dictionary';
 
 export interface DictionaryResponse {
   words: Word[];
@@ -282,3 +282,7 @@ export class DictionaryService {
     return response.data.data;
   }
 }
+
+// 创建默认实例并导出
+const dictionaryService = new DictionaryService();
+export default dictionaryService;

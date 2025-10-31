@@ -266,44 +266,43 @@
       transition: all 0.3s ease;
 
       &:hover,
-        &:focus {
-          border-color: #8B5CF6;
-          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+      &:focus {
+        border-color: #8B5CF6;
+        box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+      }
+    }
+
+    .ant-rate {
+      .ant-rate-star {
+        margin-right: 8px;
+
+        .ant-rate-star-first,
+        .ant-rate-star-second {
+          color: #d1d5db;
+        }
+
+        &.ant-rate-star-full .ant-rate-star-first,
+        &.ant-rate-star-full .ant-rate-star-second {
+          color: #fbbf24;
+        }
+
+        &.ant-rate-star-half .ant-rate-star-first {
+          color: #fbbf24;
         }
       }
+    }
 
-      .ant-rate {
-        .ant-rate-star {
-          margin-right: 8px;
+    .ant-btn {
+      border-radius: 8px;
+      height: 36px;
+      font-weight: 500;
 
-          .ant-rate-star-first,
-          .ant-rate-star-second {
-            color: #d1d5db;
-          }
+      &.ant-btn-primary {
+        background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+        border: none;
 
-          &.ant-rate-star-full .ant-rate-star-first,
-          &.ant-rate-star-full .ant-rate-star-second {
-            color: #fbbf24;
-          }
-
-          &.ant-rate-star-half .ant-rate-star-first {
-            color: #fbbf24;
-          }
-        }
-      }
-
-      .ant-btn {
-        border-radius: 8px;
-        height: 36px;
-        font-weight: 500;
-
-        &.ant-btn-primary {
-          background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
-          border: none;
-
-          &:hover {
-            background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
-          }
+        &:hover {
+          background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
         }
       }
     }

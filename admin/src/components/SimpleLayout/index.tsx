@@ -30,11 +30,11 @@ const SimpleLayout: React.FC = () => {
       return;
     }
 
-    // 如果未认证，重定向到登录页
-    if (!authState.isAuthenticated) {
+    // 如果未认证且不在登录页，重定向到登录页
+    if (!authState.isAuthenticated && location.pathname !== '/login') {
       navigate('/login', { replace: true });
     }
-  }, [authState.isAuthenticated, authState.loading, navigate]);
+  }, [authState.isAuthenticated, authState.loading, location.pathname, navigate]);
 
   // 菜单配置
   const navigateIfChanged = (path: string) => {
@@ -164,7 +164,7 @@ const SimpleLayout: React.FC = () => {
     <AntLayout
       style={{
         minHeight: '100vh',
-        opacity: isCheckingAuth ? 0 : 1,
+        opacity: authState.loading ? 0 : 1,
         transition: 'opacity 0.2s ease-in-out'
       }}
     >

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Select, InputNumber, Button, Space, Divider, Typography, Upload, message } from 'antd';
 import { PlusOutlined, MinusOutlined, UploadOutlined, BookOutlined } from '@ant-design/icons';
-import { Book } from '@types/books';
+import type { Book } from '@/types/books';
 import styles from './BookForm.module.scss';
 
 const { Title, Text } = Typography;

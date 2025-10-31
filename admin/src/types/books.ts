@@ -1,4 +1,4 @@
-import { PaginationParams } from './common';
+import type { PaginationParams } from '@/types/common';
 
 // 书籍类型
 export interface Book {

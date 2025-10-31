@@ -41,7 +41,7 @@ import {
   ClockCircleOutlined,
   ExclamationCircleOutlined
 } from '@ant-design/icons';
-import { ListeningMaterial, ListeningSearchParams } from '@types/listening';
+import { ListeningMaterial, ListeningSearchParams } from '@/types/listening';
 import { listeningService } from '@services';
 import styles from './MaterialManager.module.scss';
 

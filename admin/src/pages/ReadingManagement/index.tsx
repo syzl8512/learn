@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Typography, Button, Space, Table, Tag, Upload, Modal, Form, Input, Select, message } from 'antd';
 import { PlusOutlined, UploadOutlined, FileTextOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useApp } from '@contexts/AppContext';
-import { Book, BookSearchParams } from '@types/books';
+import type { Book, BookSearchParams } from '@/types/books';
 import { bookService } from '@services';
 import styles from './ReadingManagement.module.scss';
 

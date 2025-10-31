@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Typography, Button, Space, Table, Tag, Modal, Form, Input, Select, message, Tabs, Badge, Upload } from 'antd';
 import { PlusOutlined, ImportOutlined, ExportOutlined, TranslationOutlined, EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import { useApp } from '@contexts/AuthContext';
-import { Vocabulary, VocabularySearchParams, VocabularyImportParams } from '@types/dictionary';
+import { Vocabulary, VocabularySearchParams, VocabularyImportParams } from '@/types/dictionary';
 import { dictionaryService } from '@services';
 import styles from './DictionaryManagement.module.scss';
 

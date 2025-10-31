@@ -28,7 +28,7 @@ import {
 } from '@ant-design/icons';
 import type { UploadFile, UploadProps } from 'antd/es/upload';
 import type { ColumnsType } from 'antd/es/table';
-import { DictionaryService } from '../services/dictionary';
+import { DictionaryService } from '@services/dictionary';
 import { WordImportResult, Word } from './types';
 
 const { TextArea } = Input;

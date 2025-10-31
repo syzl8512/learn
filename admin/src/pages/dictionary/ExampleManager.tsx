@@ -27,7 +27,7 @@ import {
   TranslationOutlined,
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
-import { DictionaryService } from '../services/dictionary';
+import { DictionaryService } from '@services/dictionary';
 import { Word, Sentence } from './types';
 
 const { TextArea } = Input;

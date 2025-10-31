@@ -41,7 +41,7 @@ import {
   ReloadOutlined
 } from '@ant-design/icons';
 import { useApp } from '@contexts/AppContext';
-import { ListeningMaterial, ListeningSearchParams } from '@types/listening';
+import { ListeningMaterial, ListeningSearchParams } from '@/types/listening';
 import { listeningService } from '@services';
 import FeishuSync from '@components/listening/FeishuSync';
 import MaterialManager from '@components/listening/MaterialManager';

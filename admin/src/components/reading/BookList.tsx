@@ -11,7 +11,7 @@ import {
   FileTextOutlined,
   ClockCircleOutlined
 } from '@ant-design/icons';
-import { Book } from '@types/books';
+import type { Book } from '@/types/books';
 import styles from './BookList.module.scss';
 
 const { Text } = Typography;

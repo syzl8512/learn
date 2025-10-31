@@ -25,7 +25,7 @@ import {
   BookOutlined,
   BulbOutlined,
 } from '@ant-design/icons';
-import { DictionaryService } from '../services/dictionary';
+import { DictionaryService } from '@services/dictionary';
 import { TranslationRequest, TranslationResult } from './types';
 
 const { TextArea } = Input;

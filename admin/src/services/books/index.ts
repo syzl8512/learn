@@ -1,5 +1,5 @@
 import { request } from '../api';
-import { Book, Chapter, ChapterVersion, Volume, Segment, BookSearchParams, ChapterSearchParams, PdfUploadResponse } from '../../types/books';
+import type { Book, Chapter, ChapterVersion, Volume, Segment, BookSearchParams, ChapterSearchParams, PdfUploadResponse } from '@/types/books';
 
 export const bookService = {
   // 书籍管理

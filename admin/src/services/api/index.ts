@@ -1,6 +1,7 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import axios from 'axios';
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { message } from 'antd';
-import { ApiResponse } from '../../types/common';
+import type { ApiResponse } from '@/types/common';
 
 // API基础配置
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
@@ -66,10 +67,16 @@ apiClient.interceptors.response.use(
     return response;
   },
   (error: AxiosError<ApiResponse>) => {
-    console.error('Response Error:', error);
-
     const { response } = error;
     let errorMessage = '网络请求失败，请稍后重试';
+
+    // 只在非后台请求且非网络错误时记录错误
+    const isBackgroundAuth = error.config?.url?.includes('/auth/me');
+    const isNetworkError = error.code === 'ERR_NETWORK' || error.message === 'Network Error';
+    
+    if (!isBackgroundAuth && !isNetworkError) {
+      console.error('Response Error:', error);
+    }
 
     if (response) {
       const { status, data } = response;
@@ -105,11 +112,19 @@ apiClient.interceptors.response.use(
       }
     } else if (error.code === 'ECONNABORTED') {
       errorMessage = '请求超时，请检查网络连接';
-    } else if (error.message === 'Network Error') {
-      errorMessage = '网络连接失败，请检查网络设置';
+    } else if (error.code === 'ERR_NETWORK' || error.message === 'Network Error') {
+      // 后端服务未启动时，不显示错误消息（特别是在后台验证时）
+      if (error.config?.url?.includes('/auth/me')) {
+        // 后台验证失败，静默处理
+        return Promise.reject(error);
+      }
+      errorMessage = '网络连接失败，请检查网络设置或确认后端服务已启动';
     }
 
-    message.error(errorMessage);
+    // 只在非后台验证请求时显示错误消息
+    if (!error.config?.url?.includes('/auth/me')) {
+      message.error(errorMessage);
+    }
     return Promise.reject(error);
   }
 );
@@ -170,4 +185,5 @@ export const request = {
   },
 };
 
+export { apiClient };
 export default apiClient;

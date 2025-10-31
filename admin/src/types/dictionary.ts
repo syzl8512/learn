@@ -1,5 +1,135 @@
 import { PaginationParams } from './common';
 
+// 词典搜索选项
+export interface DictionarySearchOptions {
+  keyword?: string;
+  examType?: string;
+  difficulty?: string;
+  sortBy?: 'wordRank' | 'headWord' | 'createdAt';
+  sortOrder?: 'asc' | 'desc';
+  page?: number;
+  pageSize?: number;
+}
+
+// 词典统计
+export interface DictionaryStats {
+  totalWords: number;
+  cet4Count: number;
+  cet6Count: number;
+  toeflCount: number;
+  ieltsCount: number;
+  greCount: number;
+  recentAdded: number;
+  todayUpdated: number;
+}
+
+// 翻译请求
+export interface TranslationRequest {
+  text: string;
+  sourceLang?: 'en' | 'zh';
+  targetLang?: 'zh' | 'en';
+}
+
+// 翻译结果
+export interface TranslationResult {
+  originalText: string;
+  translatedText: string;
+  sourceLang: string;
+  targetLang: string;
+  pronunciation?: string;
+  definitions?: string[];
+  examples?: string[];
+}
+
+// 词汇批次
+export interface VocabularyBatch {
+  id: string;
+  name: string;
+  description: string;
+  examType: string;
+  wordCount: number;
+  status: 'processing' | 'completed' | 'failed';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// 单词导入结果
+export interface WordImportResult {
+  success: boolean;
+  message: string;
+  importedCount?: number;
+  failedCount?: number;
+  errors?: string[];
+}
+
+// 单词信息
+export interface Word {
+  id: string;
+  headWord: string;
+  wordRank: number;
+  examType: string;
+  content: WordContent;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// 单词内容
+export interface WordContent {
+  word: {
+    usphone: string;
+    ukphone: string;
+    trans: Translation[];
+    sentence: Sentence;
+    syno: Synonyms;
+    phrase: Phrases;
+    relWord: RelatedWords;
+    exam: string[];
+  };
+}
+
+// 翻译
+export interface Translation {
+  [key: string]: string[];
+}
+
+// 句子
+export interface Sentence {
+  sent: string;
+  orig: string;
+  trans: string;
+}
+
+// 同义词
+export interface Synonyms {
+  [key: string]: {
+    pos: string;
+    tran: string;
+    hwds: {
+      hwd: string;
+    }[];
+  }[];
+}
+
+// 短语
+export interface Phrases {
+  [key: string]: {
+    pContent: string;
+    pCn: string;
+  }[];
+}
+
+// 相关词汇
+export interface RelatedWords {
+  [key: string]: {
+    relWords: {
+      desc: string;
+      words: {
+        hwd: string;
+      }[];
+    }[];
+  }[];
+}
+
 // 词汇类型
 export interface Vocabulary {
   id: string;

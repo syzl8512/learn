@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Typography, Button, Space, Alert, Spin, message } from 'antd';
 import { EditOutlined, SaveOutlined, ReloadOutlined } from '@ant-design/icons';
-import { Chapter } from '@types/books';
+import type { Chapter } from '@/types/books';
 import { bookService } from '@services';
 import styles from './ChapterContentEditor.module.scss';
 

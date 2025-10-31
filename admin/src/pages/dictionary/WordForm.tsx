@@ -14,7 +14,7 @@ import {
   Divider,
 } from 'antd';
 import { PlusOutlined, DeleteOutlined, SoundOutlined } from '@ant-design/icons';
-import { DictionaryService } from '../services/dictionary';
+import { DictionaryService } from '@services/dictionary';
 import { Word, WordContent } from './types';
 
 const { TextArea } = Input;

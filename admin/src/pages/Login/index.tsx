@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Card, Typography, Space, message } from 'antd';
 import { UserOutlined, LockOutlined, BookOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import styles from './Login.module.scss';
 
 const { Title, Text } = Typography;
@@ -14,14 +15,20 @@ interface LoginForm {
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { state: authState } = useAuth();
 
-  // 检查是否已登录
+  // 检查是否已登录，使用 AuthContext 的状态
   useEffect(() => {
-    const token = localStorage.getItem('admin_token');
-    if (token) {
+    // 等待认证状态初始化完成
+    if (authState.loading) {
+      return;
+    }
+
+    // 如果已认证，跳转到仪表板
+    if (authState.isAuthenticated) {
       navigate('/dashboard', { replace: true });
     }
-  }, [navigate]);
+  }, [authState.isAuthenticated, authState.loading, navigate]);
 
   // 处理登录提交
   const handleSubmit = async (values: LoginForm): Promise<void> => {
@@ -37,11 +44,12 @@ const Login: React.FC = () => {
         };
 
         // 保存到localStorage
-        localStorage.setItem('admin_token', 'demo-token-' + Date.now());
+        const token = 'demo-token-' + Date.now();
+        localStorage.setItem('admin_token', token);
         localStorage.setItem('admin_user', JSON.stringify(mockUser));
 
-        message.success('登录成功！');
-        navigate('/dashboard', { replace: true });
+        // 刷新页面让 AuthContext 重新初始化状态
+        window.location.href = '/dashboard';
       } else {
         message.error('用户名或密码错误');
       }
@@ -62,7 +70,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginBox}>
-        <Card className={styles.loginCard} variant="filled">
+        <Card className={styles.loginCard}>
           <div className={styles.loginHeader}>
             <div className={styles.logo}>
               <BookOutlined style={{ fontSize: '48px', color: '#8B5CF6' }} />

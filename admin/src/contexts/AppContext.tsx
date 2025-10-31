@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
-import { BreadcrumbItem, MenuItem } from '../types/common';
+import type { BreadcrumbItem, MenuItem } from '@/types/common';
 
 // 应用状态类型
 interface AppState {

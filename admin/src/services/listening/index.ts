@@ -1,11 +1,11 @@
 import { request } from '../api';
-import {
+import type {
   ListeningMaterial,
   FeishuRecord,
   ListeningSearchParams,
   ListeningImportParams,
   ListeningStats
-} from '../../types/listening';
+} from '@/types/listening';
 
 export const listeningService = {
   // 听力材料管理

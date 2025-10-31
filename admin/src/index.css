@@ -31,10 +31,11 @@ body {
 
 /* 防止闪屏的全局样式 */
 #root {
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.2s ease-in-out;
 }
 
+/* 如果页面完全加载后可以添加loaded类来优化体验 */
 #root.loaded {
   opacity: 1;
 }

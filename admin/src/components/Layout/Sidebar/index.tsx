@@ -15,7 +15,7 @@ import {
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@contexts/AuthContext';
 import { useApp } from '@contexts/AppContext';
-import { MenuItem } from '../../../types/common';
+import type { MenuItem } from '@/types/common';
 import styles from './Sidebar.module.scss';
 
 const { Sider } = Layout;

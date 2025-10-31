@@ -1,4 +1,4 @@
-import { PaginationParams } from './common';
+import type { PaginationParams } from '@/types/common';
 
 // 听力材料类型
 export interface ListeningMaterial {

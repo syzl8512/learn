@@ -1,5 +1,5 @@
 import { request } from '../api';
-import {
+import type {
   Vocabulary,
   VocabularyLibrary,
   VocabularySearchParams,
@@ -7,7 +7,7 @@ import {
   TranslationOptimizationRequest,
   TranslationOptimizationResponse,
   VocabularyStats
-} from '../../types/dictionary';
+} from '@/types/dictionary';
 
 export const dictionaryService = {
   // 词汇管理

@@ -36,15 +36,15 @@ import {
   SyncOutlined,
 } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
-import { DictionaryService } from '../services/dictionary';
-import {
+import { DictionaryService } from '@services/dictionary';
+import type {
   Word,
   DictionaryStats,
   DictionarySearchOptions,
   TranslationRequest,
   VocabularyBatch,
   WordImportResult,
-} from './types';
+} from '@/types/dictionary';
 import { WordForm } from './WordForm';
 import { TranslationTool } from './TranslationTool';
 import { ExampleManager } from './ExampleManager';
@@ -52,7 +52,6 @@ import { BatchImport } from './BatchImport';
 
 const { Search } = Input;
 const { Option } = Select;
-const { TabPane } = Tabs;
 
 export const DictionaryManagement: React.FC = () => {
   const [words, setWords] = useState<Word[]>([]);
@@ -378,8 +377,15 @@ export const DictionaryManagement: React.FC = () => {
   return (
     <div style={{ padding: '24px' }}>
       <Card>
-        <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <TabPane tab="词汇管理" key="words">
+        <Tabs
+          activeKey={activeTab}
+          onChange={setActiveTab}
+          items={[
+            {
+              key: 'words',
+              label: '词汇管理',
+              children: (
+                <div>
             {/* 统计卡片 */}
             {stats && (
               <Row gutter={16} style={{ marginBottom: 24 }}>
@@ -535,10 +541,15 @@ export const DictionaryManagement: React.FC = () => {
               }}
               scroll={{ x: 1200 }}
             />
-          </TabPane>
-
-          <TabPane tab="批次管理" key="batches">
-            <div style={{ marginBottom: 16 }}>
+                </div>
+              ),
+            },
+            {
+              key: 'batches',
+              label: '批次管理',
+              children: (
+                <div>
+                  <div style={{ marginBottom: 16 }}>
               <Button
                 type="primary"
                 icon={<UploadOutlined />}
@@ -565,8 +576,11 @@ export const DictionaryManagement: React.FC = () => {
                 showQuickJumper: true,
               }}
             />
-          </TabPane>
-        </Tabs>
+              </div>
+            ),
+          },
+        ]}
+        />
       </Card>
 
       {/* 词汇编辑表单 */}

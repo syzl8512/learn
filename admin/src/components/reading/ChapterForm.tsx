@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Form, Input, InputNumber, Button, Space, Typography } from 'antd';
-import { Chapter } from '@types/books';
+import type { Chapter } from '@/types/books';
 import styles from './ChapterForm.module.scss';
 
 const { Title } = Typography;

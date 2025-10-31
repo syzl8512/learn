@@ -32,16 +32,16 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <Navigate to="/dashboard" replace />,
-  },
-  {
-    path: '/',
     element: (
       <Suspense fallback={<LoadingSpinner />}>
         <SimpleLayout />
       </Suspense>
     ),
     children: [
+      {
+        index: true,
+        element: <Navigate to="/dashboard" replace />,
+      },
       {
         path: 'dashboard',
         element: (
