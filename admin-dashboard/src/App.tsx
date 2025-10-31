@@ -3,6 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from './router/index';
 import { AuthProvider } from './contexts/AuthContext';
 import { AppProvider } from './contexts/AppContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import ErrorBoundary from './components/ErrorBoundary';
 
 console.log('📦 App 组件加载中...');
@@ -28,7 +29,9 @@ const App: React.FC = () => {
     <ErrorBoundary>
       <AuthProvider>
         <AppProvider>
-          <RouterProvider router={router} />
+          <ThemeProvider>
+            <RouterProvider router={router} />
+          </ThemeProvider>
         </AppProvider>
       </AuthProvider>
     </ErrorBoundary>

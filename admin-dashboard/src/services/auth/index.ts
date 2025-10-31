@@ -14,7 +14,7 @@ export const authService = {
 
   // 获取当前用户信息
   getCurrentUser: () => {
-    return request.get<AdminUser>('/auth/me');
+    return request.get<AdminUser>('/users/me');
   },
 
   // 刷新token

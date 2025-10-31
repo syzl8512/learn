@@ -203,7 +203,7 @@ async function bootstrap() {
 
 #### 5.1 管理后台API路径更新
 ```typescript
-// admin/src/services/api.ts (示例)
+// admin-dashboard/src/services/api.ts (示例)
 
 // 修改前：
 const API_BASE = 'http://localhost:3000/api/books';
