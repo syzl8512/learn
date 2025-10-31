@@ -64,11 +64,10 @@ const BookManagement: React.FC = () => {
     try {
       setLoading(true);
       const response = await bookService.getBooks(searchParams);
-      const { data } = response;
 
-      if (data.success && data.data) {
-        setBooks(data.data.items);
-        setTotal(data.data.total);
+      if (response.data && response.data.data) {
+        setBooks(response.data.data || []);
+        setTotal(response.data.meta?.total || 0);
       }
     } catch (error) {
       console.error('Failed to fetch books:', error);
