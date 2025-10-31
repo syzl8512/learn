@@ -93,7 +93,7 @@ async updateUserLexile(...) {
 ## 前端API调用更新检查
 
 ### 管理后台检查
-- [ ] `admin/src/` 中所有API调用路径已更新
+- [ ] `admin-dashboard/src/` 中所有API调用路径已更新
 - [ ] 书籍管理相关API调用已更新为 `/api/v1/admin/books`
 - [ ] 管理员认证API已更新为 `/api/v1/admin/auth`
 

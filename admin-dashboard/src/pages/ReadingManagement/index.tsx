@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Typography, Button, Space, Table, Tag, Upload, Modal, Form, Input, Select, message } from 'antd';
 import { PlusOutlined, UploadOutlined, FileTextOutlined, EyeOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useApp } from '@contexts/AppContext';
@@ -19,42 +19,21 @@ const ReadingManagement: React.FC = () => {
   const [currentBook, setCurrentBook] = useState<Book | null>(null);
   const [form] = Form.useForm();
 
-  // 使用独立的状态管理分页参数，避免对象引用问题
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [searchParams, setSearchParams] = useState<BookSearchParams>({
+    page: 1,
+    pageSize: 10,
+  });
 
-  // 使用 useMemo 创建稳定的 searchParams 对象
-  const searchParams = useMemo<BookSearchParams>(() => ({
-    page,
-    pageSize,
-  }), [page, pageSize]);
-
-  // 使用 useCallback 稳定 fetchBooks 函数引用
-  const fetchBooks = useCallback(async () => {
+  // 获取书籍列表
+  const fetchBooks = async () => {
     try {
       setLoading(true);
-      // 将 pageSize 转换为后端期望的 limit 参数
-      const apiParams = {
-        page: searchParams.page,
-        limit: searchParams.pageSize,
-        // 保留其他可能的搜索参数
-        ...(searchParams.keyword && { search: searchParams.keyword }),
-        ...(searchParams.category && { category: searchParams.category }),
-        ...(searchParams.difficulty && { difficulty: searchParams.difficulty }),
-        ...(searchParams.status && { status: searchParams.status }),
-        ...(searchParams.author && { author: searchParams.author }),
-      };
-      
-      const response = await bookService.getBooks(apiParams);
+      const response = await bookService.getBooks(searchParams);
       const { data } = response;
 
-      // 兼容不同的响应格式
       if (data.success && data.data) {
-        // 可能是 { items: [], total: number } 或直接是数组
-        const items = Array.isArray(data.data) ? data.data : (data.data.items || []);
-        const total = data.data.total || data.meta?.total || 0;
-        setBooks(items);
-        setTotal(total);
+        setBooks(data.data.items);
+        setTotal(data.data.total);
       }
     } catch (error) {
       console.error('Failed to fetch books:', error);
@@ -66,7 +45,7 @@ const ReadingManagement: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [searchParams]);
+  };
 
   // 初始化页面标题和描述
   useEffect(() => {
@@ -77,7 +56,8 @@ const ReadingManagement: React.FC = () => {
   // 处理搜索参数变化，获取书籍列表
   useEffect(() => {
     fetchBooks();
-  }, [fetchBooks]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   // 表格列定义
   const columns = [
@@ -180,13 +160,11 @@ const ReadingManagement: React.FC = () => {
 
   // 处理表格变化
   const handleTableChange = (pagination: any) => {
-    if (pagination.current !== page) {
-      setPage(pagination.current);
-    }
-    if (pagination.pageSize !== pageSize) {
-      setPageSize(pagination.pageSize);
-      setPage(1); // 改变每页条数时重置到第一页
-    }
+    setSearchParams(prev => ({
+      ...prev,
+      page: pagination.current,
+      pageSize: pagination.pageSize,
+    }));
   };
 
   // 查看书籍
@@ -290,8 +268,8 @@ const ReadingManagement: React.FC = () => {
           rowKey="id"
           loading={loading}
           pagination={{
-            current: page,
-            pageSize: pageSize,
+            current: searchParams.page,
+            pageSize: searchParams.pageSize,
             total: total,
             showSizeChanger: true,
             showQuickJumper: true,

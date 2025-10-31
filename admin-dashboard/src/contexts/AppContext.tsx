@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, ReactNode } from 'react';
+import React, { createContext, useContext, useReducer, useCallback, ReactNode } from 'react';
 import type { BreadcrumbItem, MenuItem } from '@/types/common';
 
 // 应用状态类型
@@ -220,13 +220,13 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   };
 
   // 页面操作
-  const setPageTitle = (title: string): void => {
+  const setPageTitle = useCallback((title: string): void => {
     dispatch({ type: 'SET_PAGE_TITLE', payload: title });
-  };
+  }, []);
 
-  const setPageDescription = (description: string): void => {
+  const setPageDescription = useCallback((description: string): void => {
     dispatch({ type: 'SET_PAGE_DESCRIPTION', payload: description });
-  };
+  }, []);
 
   const setPageLoading = (loading: boolean): void => {
     dispatch({ type: 'SET_PAGE_LOADING', payload: loading });
