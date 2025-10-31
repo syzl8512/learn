@@ -48,9 +48,15 @@ export class BookService {
    * 查询书籍列表 (支持分页、搜索、排序)
    */
   async findAll(query: QueryBookDto): Promise<PaginatedResult<BookEntity>> {
+    this.logger.log(`开始查询书籍列表，查询参数: ${JSON.stringify(query)}`);
+
+    // 使用DTO的getter方法来正确获取分页参数
+    const page = query.page || 1;
+    const limit = query.take; // 使用take getter，它会优先使用pageSize然后是limit
+
+    this.logger.log(`解析的分页参数: page=${page}, limit=${limit}`);
+
     const {
-      page = 1,
-      limit = 20,
       search,
       category,
       status,
@@ -97,8 +103,13 @@ export class BookService {
     orderBy[sortBy] = sortOrder;
 
     try {
+      this.logger.log(`构建查询条件: ${JSON.stringify(where)}`);
+      this.logger.log(`排序配置: ${JSON.stringify(orderBy)}`);
+      this.logger.log(`分页配置: skip=${(page - 1) * limit}, take=${limit}`);
+
       // 查询总数
       const total = await this.prisma.book.count({ where });
+      this.logger.log(`查询到总记录数: ${total}`);
 
       // 查询数据
       const books = await this.prisma.book.findMany({
@@ -113,10 +124,15 @@ export class BookService {
         },
       });
 
+      this.logger.log(`实际查询到 ${books.length} 条记录`);
+
       // 转换数据
       const transformedBooks = books.map((book) => this.transformBook(book, book._count.chapters));
 
-      return createPaginatedResponse(transformedBooks, total, page, limit);
+      const result = createPaginatedResponse(transformedBooks, total, page, limit);
+      this.logger.log(`返回分页结果: total=${result.meta.total}, page=${result.meta.page}, limit=${result.meta.limit}`);
+
+      return result;
     } catch (error) {
       this.logger.error(`查询书籍列表失败: ${error.message}`, error.stack);
       throw new BadRequestException('查询书籍列表失败');

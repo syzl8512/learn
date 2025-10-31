@@ -15,7 +15,7 @@ async function bootstrap() {
     new ValidationPipe({
       transform: true,
       whitelist: true,
-      forbidNonWhitelisted: true,
+      forbidNonWhitelisted: false, // 允许额外的查询参数（如 _t 时间戳）
     }),
   );
 

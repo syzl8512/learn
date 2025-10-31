@@ -166,7 +166,15 @@ export class BookController {
   @ApiOperation({ summary: '查询书籍列表' })
   @ApiResponse({ status: 200, type: [BookEntity] })
   async findAll(@Query() query: QueryBookDto): Promise<PaginatedResult<BookEntity>> {
-    return this.bookService.findAll(query);
+    this.logger.log(`接收到书籍列表查询请求: ${JSON.stringify(query)}`);
+    try {
+      const result = await this.bookService.findAll(query);
+      this.logger.log(`查询成功，返回 ${result.data.length} 条记录`);
+      return result;
+    } catch (error) {
+      this.logger.error(`查询失败: ${error.message}`, error.stack);
+      throw error;
+    }
   }
 
   /**
