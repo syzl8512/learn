@@ -1,0 +1,486 @@
+.materialReview {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.statsRow {
+  margin-bottom: 24px;
+
+  .ant-card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+      border-color: #8B5CF6;
+    }
+
+    .ant-statistic {
+      text-align: center;
+
+      .ant-statistic-title {
+        font-weight: 500;
+        color: #6b7280;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .ant-statistic-content {
+        .anticon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+.standardCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+
+  h4 {
+    color: #1f2937;
+    margin-bottom: 16px;
+
+    .anticon {
+      margin-right: 8px;
+      color: #8B5CF6;
+    }
+  }
+
+  .ant-alert {
+    border-radius: 8px;
+
+    &.ant-alert-info {
+      background-color: #f0f9ff;
+      border-color: #8B5CF6;
+
+      .ant-alert-icon {
+        color: #8B5CF6;
+      }
+
+      .ant-alert-message {
+        font-weight: 600;
+        color: #1f2937;
+      }
+
+      .ant-alert-description {
+        color: #374151;
+
+        p {
+          margin-bottom: 8px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          strong {
+            color: #1f2937;
+          }
+        }
+      }
+    }
+  }
+}
+
+.contentCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  .ant-tabs-nav {
+    margin-bottom: 0;
+
+    .ant-tabs-tab {
+      font-weight: 500;
+      color: #6b7280;
+
+      &.ant-tabs-tab-active {
+        color: #8B5CF6;
+        font-weight: 600;
+      }
+    }
+
+    .ant-tabs-ink-bar {
+      background: linear-gradient(90deg, #8B5CF6 0%, #A78BFA 100%);
+    }
+  }
+
+  .ant-tabs-content-holder {
+    padding: 24px;
+  }
+}
+
+.toolbar {
+  margin-bottom: 16px;
+  padding: 16px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+
+  .ant-btn {
+    border-radius: 8px;
+    height: 36px;
+    font-weight: 500;
+
+    &.ant-btn-primary {
+      background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+      border: none;
+
+      &:hover {
+        background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+      }
+
+      &:disabled {
+        background: #f5f5f5;
+        color: #bfbfbf;
+      }
+    }
+
+    &.ant-btn-dangerous {
+      &:hover {
+        background-color: #ff7875;
+        border-color: #ff7875;
+        color: white;
+      }
+    }
+  }
+}
+
+.reviewTable,
+.recordTable {
+  :global(.ant-table-thead > tr > th) {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  :global(.ant-table-tbody > tr > td) {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 16px;
+  }
+
+  :global(.ant-table-tbody > tr:hover > td) {
+    background-color: #f9fafb;
+  }
+}
+
+.materialInfo {
+  .materialTitle {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .materialExcerpt {
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .materialMeta {
+    font-size: 11px;
+    color: #9ca3af;
+
+    .ant-space {
+      .ant-space-item {
+        span {
+          color: #9ca3af;
+        }
+      }
+    }
+  }
+}
+
+// 审核模态框样式
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .ant-modal-header {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-bottom: 1px solid #e5e7eb;
+
+    .ant-modal-title {
+      font-weight: 600;
+      color: #1f2937;
+    }
+  }
+
+  .ant-modal-body {
+    padding: 24px;
+  }
+
+  .ant-descriptions {
+    .ant-descriptions-item-label {
+      font-weight: 500;
+      color: #374151;
+      background-color: #f9fafb;
+    }
+
+    .ant-descriptions-item-content {
+      .ant-tag {
+        border-radius: 6px;
+      }
+    }
+  }
+
+  .ant-form {
+    .ant-form-item {
+      margin-bottom: 16px;
+
+      .ant-form-item-label > label {
+        font-weight: 500;
+        color: #374151;
+      }
+    }
+
+    .ant-select {
+      .ant-select-selector {
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        transition: all 0.3s ease;
+
+        &:hover,
+        &:focus {
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+        }
+      }
+    }
+
+    .ant-input,
+    .ant-input-textarea {
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      transition: all 0.3s ease;
+
+      &:hover,
+        &:focus {
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+        }
+      }
+
+      .ant-rate {
+        .ant-rate-star {
+          margin-right: 8px;
+
+          .ant-rate-star-first,
+          .ant-rate-star-second {
+            color: #d1d5db;
+          }
+
+          &.ant-rate-star-full .ant-rate-star-first,
+          &.ant-rate-star-full .ant-rate-star-second {
+            color: #fbbf24;
+          }
+
+          &.ant-rate-star-half .ant-rate-star-first {
+            color: #fbbf24;
+          }
+        }
+      }
+
+      .ant-btn {
+        border-radius: 8px;
+        height: 36px;
+        font-weight: 500;
+
+        &.ant-btn-primary {
+          background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+          border: none;
+
+          &:hover {
+            background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 审核记录表格特殊样式
+.recordTable {
+  :global(.ant-table-tbody > tr > td) {
+    .ant-rate {
+      .ant-rate-star {
+        margin-right: 4px;
+
+        .ant-rate-star-first,
+        .ant-rate-star-second {
+          color: #fbbf24;
+        }
+      }
+    }
+
+    .ant-avatar {
+      background-color: #8B5CF6;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .materialReview {
+    margin: 0 16px;
+  }
+
+  .statsRow {
+    .ant-statistic {
+      .ant-statistic-title {
+        font-size: 12px;
+      }
+
+      .ant-statistic-content {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .standardCard {
+    .ant-alert {
+      .ant-alert-description {
+        p {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .toolbar {
+    .ant-space {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      .ant-space-item {
+        .ant-btn {
+          width: 100%;
+          margin-bottom: 8px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .contentCard {
+    .ant-tabs-nav {
+      .ant-tabs-tab {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+
+    .ant-tabs-content-holder {
+      padding: 16px;
+    }
+  }
+
+  .reviewTable,
+  .recordTable {
+    :global(.ant-table) {
+      font-size: 12px;
+    }
+
+    :global(.ant-table-thead > tr > th),
+    :global(.ant-table-tbody > tr > td) {
+      padding: 8px;
+    }
+  }
+
+  .materialInfo {
+    .materialTitle {
+      font-size: 13px;
+    }
+
+    .materialExcerpt {
+      font-size: 11px;
+    }
+
+    .materialMeta {
+      font-size: 10px;
+    }
+  }
+
+  .ant-modal {
+    .ant-modal-body {
+      padding: 16px;
+    }
+
+    .ant-descriptions {
+      .ant-descriptions-item {
+        padding-bottom: 8px;
+      }
+    }
+
+    .ant-form {
+      .ant-btn {
+        width: 100%;
+        margin-bottom: 8px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .statsRow {
+    .ant-col {
+      margin-bottom: 16px;
+    }
+  }
+
+  .toolbar {
+    padding: 12px;
+
+    .ant-btn {
+      height: 32px;
+      font-size: 12px;
+    }
+  }
+
+  .reviewTable,
+  .recordTable {
+    :global(.ant-table) {
+      font-size: 11px;
+    }
+
+    :global(.ant-table-thead > tr > th),
+    :global(.ant-table-tbody > tr > td) {
+      padding: 6px;
+    }
+  }
+
+  .ant-modal {
+    .ant-modal-body {
+      padding: 12px;
+    }
+
+    .ant-descriptions {
+      .ant-descriptions-item-label {
+        font-size: 12px;
+      }
+
+      .ant-descriptions-item-content {
+        font-size: 12px;
+      }
+    }
+  }
+}

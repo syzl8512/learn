@@ -1,33 +1,12 @@
 import { ApiPropertyOptional, PartialType } from '@nestjs/swagger';
-import { IsBoolean, IsOptional, IsDateString } from 'class-validator';
 import { CreateVocabularyDto } from './create-vocabulary.dto';
 
 /**
  * 更新生词DTO
- * 继承CreateVocabularyDto的所有字段,并添加额外的更新字段
+ * 继承CreateVocabularyDto的所有字段
+ * 移除了掌握相关字段（mastered, masteredAt, nextReviewAt），因为这些字段已从数据库模型中删除
  */
 export class UpdateVocabularyDto extends PartialType(CreateVocabularyDto) {
-  @ApiPropertyOptional({
-    description: '是否已掌握',
-    example: true,
-  })
-  @IsBoolean()
-  @IsOptional()
-  mastered?: boolean;
-
-  @ApiPropertyOptional({
-    description: '掌握时间 (ISO 8601格式)',
-    example: '2025-10-26T10:00:00.000Z',
-  })
-  @IsDateString()
-  @IsOptional()
-  masteredAt?: string;
-
-  @ApiPropertyOptional({
-    description: '下次复习时间 (ISO 8601格式)',
-    example: '2025-10-27T10:00:00.000Z',
-  })
-  @IsDateString()
-  @IsOptional()
-  nextReviewAt?: string;
+  // 移除了掌握相关字段，因为数据库模型中已删除这些字段
+  // 所有字段现在都继承自 CreateVocabularyDto
 }

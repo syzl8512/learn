@@ -7,29 +7,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-/// 用户表 - 包含蓝斯值和学习进度
+/// 用户表 - 用户基本信息
 model User {
-  id                String              @id @default(cuid())
-  email             String?             @unique
-  wechatId          String?             @unique
-  nickname          String?
-  avatar            String?
-  lexileScore       Float?
-  lexileLevel       String?
-  lexileUpdatedAt   DateTime?
-  role              String              @default("student")
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @updatedAt
-  bookmarks         Bookmark[]
-  listeningHistory  ListeningHistory[]
-  readingProgress   ReadingProgress[]
-  credential        UserCredential?
-  lexileAssessments UserLexileHistory[]
-  vocabulary        Vocabulary[]
+  id               String             @id @default(cuid())
+  email            String?            @unique
+  wechatId         String?            @unique
+  nickname         String?
+  avatar           String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  bookmarks        Bookmark[]
+  listeningHistory ListeningHistory[]
+  readingProgress  ReadingProgress[]
+  credential       UserCredential?
+  vocabulary       Vocabulary[]
 
   @@index([email])
   @@index([wechatId])
-  @@index([lexileScore])
   @@map("users")
 }
 
@@ -45,23 +39,6 @@ model UserCredential {
   @@map("user_credentials")
 }
 
-/// 用户蓝斯值评估历史表
-model UserLexileHistory {
-  id               String   @id @default(cuid())
-  userId           String
-  assessmentMethod String
-  minLexile        Float?
-  maxLexile        Float?
-  averageLexile    Float
-  recommendedLevel String
-  inputContent     String?
-  analysisResult   Json?
-  createdAt        DateTime @default(now())
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId, createdAt])
-  @@map("user_lexile_history")
-}
 
 /// 书籍表
 model Book {
@@ -211,44 +188,18 @@ model Vocabulary {
   chineseTranslation String
   exampleSentence    String?
   exampleTranslation String?
-  synonyms           Json?
-  antonyms           Json?
-  lexileLevel        Float?
   sourceType         String?
   sourceChapterId    String?
   sourceListeningId  String?
-  mastered           Boolean   @default(false)
-  masteredAt         DateTime?
-  nextReviewAt       DateTime?
-  reviewCount        Int       @default(0)
   notes              String?
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, word])
-  @@index([userId, mastered])
-  @@index([nextReviewAt])
   @@map("vocabulary")
 }
 
-/// 词汇难度表
-model VocabularyDifficulty {
-  id          String   @id @default(cuid())
-  word        String   @unique
-  difficulty  String
-  lexileLevel Int
-  frequency   Float
-  isCommon    Boolean  @default(false)
-  category    String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([word])
-  @@index([difficulty])
-  @@index([lexileLevel])
-  @@map("vocabulary_difficulty")
-}
 
 /// 阅读进度表
 model ReadingProgress {
@@ -313,32 +264,4 @@ model ImportBatch {
   @@map("import_batches")
 }
 
-/// 管理员操作日志表
-model AdminLog {
-  id         String   @id @default(cuid())
-  adminId    String
-  adminName  String?
-  action     String
-  resource   String
-  resourceId String?
-  details    Json?
-  ipAddress  String?
-  userAgent  String?
-  createdAt  DateTime @default(now())
 
-  @@index([adminId])
-  @@index([action, resource])
-  @@index([createdAt])
-  @@map("admin_logs")
-}
-
-/// 系统配置表
-model SystemConfig {
-  id          String   @id @default(cuid())
-  key         String   @unique
-  value       Json
-  description String?
-  updatedAt   DateTime @updatedAt
-
-  @@map("system_configs")
-}

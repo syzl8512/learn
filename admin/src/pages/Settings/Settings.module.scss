@@ -1,0 +1,118 @@
+.settings {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+
+  h2 {
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 0;
+  }
+}
+
+.settingsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settingsCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  :global(.ant-card-head) {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  :global(.ant-card-head-title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  :global(.ant-card-body) {
+    padding: 24px;
+  }
+}
+
+.settingItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.settingInfo {
+  flex: 1;
+  margin-right: 16px;
+}
+
+.settingTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.settingDescription {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.4;
+}
+
+.actionBar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  margin-top: 24px;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .pageHeader {
+    margin-bottom: 24px;
+    text-align: center;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .settingsCard {
+    :global(.ant-card-body) {
+      padding: 16px;
+    }
+  }
+
+  .settingItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .settingInfo {
+    margin-right: 0;
+  }
+
+  .actionBar {
+    justify-content: center;
+    padding: 16px;
+  }
+}

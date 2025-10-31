@@ -1,0 +1,172 @@
+.logo {
+  height: 64px;
+  padding: 16px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  background: #fff;
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logoIcon {
+    font-size: 24px;
+    color: #8B5CF6;
+    margin-right: 12px;
+  }
+
+  .logoText {
+    .logoTitle {
+      font-weight: bold;
+      font-size: 14px;
+      color: #1a1a1a;
+      line-height: 1.2;
+    }
+
+    .logoSubtitle {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.2;
+    }
+  }
+
+  .logoIconCollapsed {
+    font-size: 24px;
+    color: #8B5CF6;
+  }
+}
+
+.menuContainer {
+  flex: 1;
+  overflow-y: auto;
+
+  .menu {
+    border-right: 0;
+
+    :global(.ant-menu-item) {
+      margin: 4px 8px;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: #f5f3ff;
+      }
+
+      &.ant-menu-item-selected {
+        background-color: #8B5CF6;
+        color: #fff;
+
+        .anticon {
+          color: #fff;
+        }
+      }
+    }
+
+    :global(.ant-menu-submenu) {
+      margin: 4px 8px;
+      border-radius: 6px;
+
+      .ant-menu-submenu-title {
+        border-radius: 6px;
+
+        &:hover {
+          background-color: #f5f3ff;
+        }
+      }
+    }
+  }
+}
+
+.userSection {
+  padding: 16px;
+  border-top: 1px solid #f0f0f0;
+  background: #fff;
+
+  .userInfo {
+    .userDropdown {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+
+      .userAvatar {
+        margin-right: 8px;
+      }
+
+      .userDetails {
+        .userName {
+          font-size: 14px;
+          font-weight: 500;
+          color: #1a1a1a;
+          line-height: 1.2;
+        }
+
+        .userRole {
+          font-size: 12px;
+          color: #666;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+
+  .userSectionCollapsed {
+    display: flex;
+    justify-content: center;
+
+    .userAvatarCollapsed {
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    }
+  }
+}
+
+.content {
+  margin: 16px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  min-height: calc(100vh - 96px);
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.sider {
+  background: #fff !important;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  border-right: 1px solid #f0f0f0;
+}
+
+/* 防止闪屏的CSS */
+.ant-layout {
+  background: #fff !important;
+}
+
+.ant-layout-sider {
+  background: #fff !important;
+}
+
+.ant-layout-header {
+  background: #fff !important;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 16px;
+  height: 64px;
+  line-height: 64px;
+}

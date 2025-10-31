@@ -34,11 +34,6 @@ export class VocabularyExportService {
       '中文翻译',
       '例句',
       '例句翻译',
-      '同义词',
-      '反义词',
-      '蓝斯值',
-      '掌握状态',
-      '复习次数',
       '创建时间',
       '备注',
     ];
@@ -52,11 +47,6 @@ export class VocabularyExportService {
       this.escapeCSVField(vocab.chineseTranslation || ''),
       this.escapeCSVField(vocab.exampleSentence || ''),
       this.escapeCSVField(vocab.exampleTranslation || ''),
-      this.escapeCSVField((vocab.synonyms as string[])?.join('; ') || ''),
-      this.escapeCSVField((vocab.antonyms as string[])?.join('; ') || ''),
-      vocab.lexileLevel || '',
-      vocab.mastered ? '已掌握' : '未掌握',
-      vocab.reviewCount.toString(),
       vocab.createdAt.toISOString().split('T')[0],
       this.escapeCSVField(vocab.notes || ''),
     ]);
@@ -121,9 +111,7 @@ export class VocabularyExportService {
         where.sourceType = query.sourceType;
       }
 
-      if (query.mastered !== undefined) {
-        where.mastered = query.mastered;
-      }
+      // 移除了掌握状态筛选功能
 
       if (query.startDate || query.endDate) {
         where.createdAt = {};
@@ -163,19 +151,7 @@ export class VocabularyExportService {
       parts.push(`英文释义：${vocab.englishDefinition}`);
     }
 
-    // 同义词和反义词
-    if (vocab.synonyms && Array.isArray(vocab.synonyms) && vocab.synonyms.length > 0) {
-      parts.push(`同义词：${(vocab.synonyms as string[]).join(', ')}`);
-    }
-
-    if (vocab.antonyms && Array.isArray(vocab.antonyms) && vocab.antonyms.length > 0) {
-      parts.push(`反义词：${(vocab.antonyms as string[]).join(', ')}`);
-    }
-
-    // 蓝斯值
-    if (vocab.lexileLevel) {
-      parts.push(`蓝斯值：${vocab.lexileLevel}`);
-    }
+    // 移除了同义词、反义词和蓝斯值功能
 
     return parts.join('\n');
   }
@@ -206,20 +182,13 @@ export class VocabularyExportService {
    * 获取导出统计信息
    */
   async getExportStats(userId: string, query?: QueryVocabularyDto) {
-    const [total, mastered, unmastered] = await Promise.all([
-      // 总数
-      this.prisma.vocabulary.count({ where: { userId } }),
-      // 已掌握数
-      this.prisma.vocabulary.count({ where: { userId, mastered: true } }),
-      // 未掌握数
-      this.prisma.vocabulary.count({ where: { userId, mastered: false } }),
-    ]);
+    const total = await this.prisma.vocabulary.count({ where: { userId } });
 
     return {
       total,
-      mastered,
-      unmastered,
-      masteryRate: total > 0 ? ((mastered / total) * 100).toFixed(2) : '0.00',
+      mastered: 0, // 掌握功能已移除，设为0
+      unmastered: total, // 所有单词都视为未掌握
+      masteryRate: '0.00', // 掌握率固定为0
     };
   }
 }

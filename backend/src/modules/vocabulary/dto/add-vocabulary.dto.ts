@@ -74,14 +74,8 @@ export class AddVocabularyDto {
   @IsOptional()
   exampleTranslation?: string;
 
-  @ApiProperty({
-    description: '单词的蓝斯值水平',
-    example: 800,
-    required: false,
-  })
-  @IsNumber()
-  @IsOptional()
-  lexileLevel?: number;
+  // 移除了蓝斯值字段，因为数据库模型中已删除这些字段
+  // lexileLevel?: number;
 
   @ApiProperty({
     description: '来源类型',
@@ -121,13 +115,8 @@ export class AddVocabularyDto {
  * 更新生词 DTO
  */
 export class UpdateVocabularyDto {
-  @ApiProperty({
-    description: '是否已掌握',
-    required: false,
-  })
-  @IsBoolean()
-  @IsOptional()
-  mastered?: boolean;
+  // 移除了掌握字段，因为数据库模型中已删除这些字段
+  // mastered?: boolean;
 
   @ApiProperty({
     description: '用户自定义笔记',
@@ -160,13 +149,8 @@ export class QueryVocabularyDto {
   @IsOptional()
   limit?: number = 20;
 
-  @ApiProperty({
-    description: '是否已掌握（筛选）',
-    required: false,
-  })
-  @IsBoolean()
-  @IsOptional()
-  mastered?: boolean;
+  // 移除了掌握状态筛选字段，因为数据库模型中已删除这些字段
+  // mastered?: boolean;
 
   @ApiProperty({
     description: '搜索关键词（单词或翻译）',

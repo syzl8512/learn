@@ -5,9 +5,9 @@ const prisma = new PrismaClient();
 
 async function createAdminUser() {
   try {
-    // 检查是否已存在管理员用户
+    // 检查是否已存在管理员用户（通过邮箱判断）
     const existingAdmin = await prisma.user.findFirst({
-      where: { role: 'admin' },
+      where: { email: 'admin@reading-app.com' },
     });
 
     if (existingAdmin) {
@@ -24,10 +24,7 @@ async function createAdminUser() {
       data: {
         email: adminEmail,
         nickname: 'admin',
-        role: 'admin',
         avatar: null,
-        lexileScore: 0,
-        lexileLevel: 'BR',
         credential: {
           create: {
             passwordHash: hashedPassword,

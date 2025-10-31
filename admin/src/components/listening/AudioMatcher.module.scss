@@ -1,0 +1,473 @@
+.audioMatcher {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.statsRow {
+  margin-bottom: 24px;
+
+  .ant-card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
+      border-color: #8B5CF6;
+    }
+
+    .ant-statistic {
+      text-align: center;
+
+      .ant-statistic-title {
+        font-weight: 500;
+        color: #6b7280;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .ant-statistic-content {
+        .anticon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+.configCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+
+  h4 {
+    color: #1f2937;
+    margin-bottom: 16px;
+
+    .anticon {
+      margin-right: 8px;
+      color: #8B5CF6;
+    }
+  }
+
+  .ant-form {
+    .ant-form-item {
+      margin-bottom: 0;
+
+      .ant-form-item-label > label {
+        font-weight: 500;
+        color: #374151;
+      }
+    }
+
+    .ant-select {
+      .ant-select-selector {
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        transition: all 0.3s ease;
+
+        &:hover,
+        &:focus {
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+        }
+      }
+    }
+  }
+}
+
+.processCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+
+  .steps {
+    margin: 24px 0;
+
+    :global(.ant-steps-item-finish .ant-steps-item-icon) {
+      background-color: #8B5CF6;
+      border-color: #8B5CF6;
+    }
+
+    :global(.ant-steps-item-process .ant-steps-item-icon) {
+      background-color: #8B5CF6;
+      border-color: #8B5CF6;
+    }
+
+    :global(.ant-steps-item-finish .ant-steps-item-icon .ant-steps-icon) {
+      color: #fff;
+    }
+
+    :global(.ant-steps-item-title) {
+      font-weight: 500;
+    }
+
+    :global(.ant-steps-item-description) {
+      color: #6b7280;
+    }
+  }
+}
+
+.materialCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+
+  .ant-card-head {
+    border-bottom: 1px solid #f0f0f0;
+
+    .ant-card-head-title {
+      font-weight: 600;
+      color: #1f2937;
+
+      .anticon {
+        color: #8B5CF6;
+        margin-right: 8px;
+      }
+    }
+  }
+
+  .ant-btn {
+    border-radius: 8px;
+    height: 32px;
+    font-weight: 500;
+
+    &.ant-btn-primary {
+      background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+      border: none;
+
+      &:hover {
+        background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+      }
+
+      &:disabled {
+        background: #f5f5f5;
+        color: #bfbfbf;
+      }
+    }
+  }
+}
+
+.materialTable {
+  :global(.ant-table-thead > tr > th) {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  :global(.ant-table-tbody > tr > td) {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 16px;
+  }
+
+  :global(.ant-table-tbody > tr:hover > td) {
+    background-color: #f9fafb;
+  }
+}
+
+.materialInfo {
+  .materialTitle {
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .materialMeta {
+    font-size: 12px;
+    color: #6b7280;
+
+    .ant-space {
+      .ant-space-item {
+        span {
+          color: #6b7280;
+        }
+      }
+    }
+  }
+}
+
+.progressCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+
+  .progressContent {
+    text-align: center;
+    padding: 24px;
+
+    h5 {
+      color: #1f2937;
+      margin-bottom: 16px;
+    }
+
+    .ant-progress {
+      margin-bottom: 16px;
+
+      :global(.ant-progress-text) {
+        font-weight: 600;
+        color: #8B5CF6;
+      }
+    }
+  }
+}
+
+.resultCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #f0f0f0;
+
+  .ant-card-head {
+    border-bottom: 1px solid #f0f0f0;
+
+    .ant-card-head-title {
+      font-weight: 600;
+      color: #1f2937;
+
+      .anticon {
+        color: #52c41a;
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.resultTable {
+  :global(.ant-table-thead > tr > th) {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  :global(.ant-table-tbody > tr > td) {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 12px;
+  }
+
+  :global(.ant-table-tbody > tr:hover > td) {
+    background-color: #f9fafb;
+  }
+
+  .ant-badge {
+    .ant-badge-status-dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+
+.uploadArea {
+  margin: 16px 0;
+
+  :global(.ant-upload-drag) {
+    border: 2px dashed #d1d5db;
+    border-radius: 12px;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #8B5CF6;
+      background-color: #f3f0ff;
+    }
+  }
+
+  :global(.ant-upload-drag-icon) {
+    color: #8B5CF6;
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  :global(.ant-upload-text) {
+    color: #1f2937;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  :global(.ant-upload-hint) {
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+.uploadProgress {
+  margin-top: 16px;
+  padding: 16px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+
+  .fileInfo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .anticon {
+      color: #8B5CF6;
+      margin-right: 8px;
+      font-size: 16px;
+    }
+
+    span {
+      font-weight: 500;
+      color: #1f2937;
+    }
+  }
+
+  .ant-progress {
+    :global(.ant-progress-text) {
+      font-weight: 600;
+      color: #8B5CF6;
+    }
+  }
+}
+
+.audioPreview {
+  margin-top: 16px;
+
+  h5 {
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+
+  .existingAudio {
+    .ant-alert {
+      border-radius: 8px;
+
+      &.ant-alert-success {
+        background-color: #f0fdf4;
+        border-color: #52c41a;
+      }
+    }
+  }
+
+  .ant-alert {
+    border-radius: 8px;
+
+    &.ant-alert-warning {
+      background-color: #fffbeb;
+      border-color: #faad14;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .audioMatcher {
+    margin: 0 16px;
+  }
+
+  .statsRow {
+    .ant-statistic {
+      .ant-statistic-title {
+        font-size: 12px;
+      }
+
+      .ant-statistic-content {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .configCard {
+    .ant-form {
+      .ant-row {
+        flex-direction: column;
+
+        .ant-col {
+          width: 100% !important;
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+
+  .processCard {
+    .steps {
+      :global(.ant-steps-item-title) {
+        font-size: 12px;
+      }
+
+      :global(.ant-steps-item-description) {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .materialCard {
+    .ant-card-head {
+      .ant-card-extra {
+        .ant-space {
+          flex-direction: column;
+          align-items: stretch;
+
+          .ant-space-item {
+            margin-bottom: 8px;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            .ant-btn {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .materialTable,
+  .resultTable {
+    :global(.ant-table) {
+      font-size: 12px;
+    }
+
+    :global(.ant-table-thead > tr > th),
+    :global(.ant-table-tbody > tr > td) {
+      padding: 8px;
+    }
+  }
+
+  .uploadArea {
+    :global(.ant-upload-drag-icon) {
+      font-size: 36px;
+    }
+
+    :global(.ant-upload-text) {
+      font-size: 14px;
+    }
+
+    :global(.ant-upload-hint) {
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .statsRow {
+    .ant-col {
+      margin-bottom: 16px;
+    }
+  }
+
+  .configCard {
+    .ant-form {
+      .ant-form-item {
+        .ant-select {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}

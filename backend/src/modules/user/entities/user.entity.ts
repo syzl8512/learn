@@ -16,18 +16,6 @@ export class UserEntity {
   @ApiPropertyOptional({ description: '头像URL' })
   avatar?: string;
 
-  @ApiPropertyOptional({ description: '蓝斯值' })
-  lexileScore?: number;
-
-  @ApiPropertyOptional({ description: '蓝斯值等级' })
-  lexileLevel?: string;
-
-  @ApiPropertyOptional({ description: '蓝斯值更新时间' })
-  lexileUpdatedAt?: Date;
-
-  @ApiProperty({ description: '角色', default: 'student' })
-  role: string;
-
   @ApiProperty({ description: '创建时间' })
   createdAt: Date;
 

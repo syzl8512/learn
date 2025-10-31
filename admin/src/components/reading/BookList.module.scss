@@ -1,0 +1,227 @@
+.bookListCard {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+  .ant-card-body {
+    padding: 0;
+  }
+}
+
+.bookTable {
+  .ant-table-thead > tr > th {
+    background: #fafafa;
+    font-weight: 600;
+    color: #262626;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:first-child {
+      border-top-left-radius: 8px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 8px;
+    }
+  }
+
+  .ant-table-tbody > tr {
+    &:hover {
+      background: #f8f9ff;
+    }
+
+    &.table-row {
+      transition: all 0.3s;
+
+      &.status-processing {
+        background: #e6f7ff;
+
+        &:hover {
+          background: #bae7ff;
+        }
+      }
+
+      &.status-published {
+        background: #f6ffed;
+
+        &:hover {
+          background: #d9f7be;
+        }
+      }
+
+      &.status-draft {
+        background: #fffbe6;
+
+        &:hover {
+          background: #fff1b8;
+        }
+      }
+    }
+  }
+
+  .ant-table-cell {
+    padding: 16px;
+    vertical-align: top;
+  }
+}
+
+.bookInfo {
+  .bookTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+
+    .ant-typography {
+      margin: 0;
+      font-size: 15px;
+      color: #262626;
+    }
+  }
+
+  .bookMeta {
+    margin-bottom: 4px;
+
+    .author {
+      font-size: 13px;
+
+      .anticon {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .bookDescription {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-top: 4px;
+  }
+}
+
+.categoryTag {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.difficultyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .difficultyTag {
+    border-radius: 4px;
+    font-weight: 500;
+    align-self: flex-start;
+  }
+
+  .lexileLevel {
+    font-size: 12px;
+    font-weight: 500;
+  }
+}
+
+.statusTag {
+  border-radius: 4px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+
+  .anticon {
+    font-size: 12px;
+  }
+}
+
+.readingTime {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+
+  .anticon {
+    font-size: 12px;
+  }
+}
+
+.actionButtons {
+  .actionButton {
+    border-radius: 4px;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #f0f0f0;
+
+      &.ant-btn-dangerous {
+        background: #fff2f0;
+        color: #ff4d4f;
+        border-color: #ffccc7;
+      }
+    }
+
+    &.ant-btn-primary:hover {
+      background: #8B5CF6;
+      color: white;
+      border-color: #8B5CF6;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 1200px) {
+  .bookTable {
+    .ant-table-cell {
+      padding: 12px 8px;
+    }
+
+    .bookInfo {
+      .bookTitle {
+        .ant-typography {
+          font-size: 14px;
+        }
+      }
+
+      .bookDescription {
+        display: none;
+      }
+    }
+
+    .actionButtons {
+      .ant-space-item {
+        display: none;
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(5) {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bookTable {
+    .ant-table-cell {
+      padding: 8px 4px;
+    }
+
+    .bookInfo {
+      min-width: 200px;
+
+      .bookMeta {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+
+    .difficultyInfo,
+    .readingTime {
+      font-size: 12px;
+    }
+
+    .actionButtons {
+      .ant-space-item {
+        &:nth-child(3),
+        &:nth-child(4) {
+          display: none;
+        }
+      }
+    }
+  }
+}

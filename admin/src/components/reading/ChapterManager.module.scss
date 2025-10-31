@@ -1,0 +1,90 @@
+.chapterManager {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .headerInfo {
+      .title {
+        margin: 0 0 8px 0;
+        color: #8B5CF6;
+      }
+    }
+
+    .splitButton {
+      border-color: #8B5CF6;
+      color: #8B5CF6;
+
+      &:hover {
+        background: #8B5CF6;
+        color: white;
+      }
+    }
+
+    .createButton {
+      background: #8B5CF6;
+      border-color: #8B5CF6;
+
+      &:hover {
+        background: #7c3aed;
+        border-color: #7c3aed;
+      }
+    }
+  }
+
+  .content {
+    .chapterTableCard {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .chapterTable {
+      .ant-table-thead > tr > th {
+        background: #fafafa;
+        font-weight: 600;
+        color: #262626;
+      }
+
+      .ant-table-tbody > tr {
+        &:hover {
+          background: #f8f9ff;
+        }
+      }
+    }
+  }
+
+  .chapterInfo {
+    .chapterTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 4px;
+
+      .ant-typography {
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+
+    .chapterOrder {
+      font-size: 12px;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .chapterManager {
+    .header {
+      flex-direction: column;
+      gap: 16px;
+
+      .ant-space {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+  }
+}

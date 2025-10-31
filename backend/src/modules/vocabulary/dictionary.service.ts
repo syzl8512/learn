@@ -13,9 +13,10 @@ export interface WordDefinition {
   chineseTranslation: string;
   exampleSentence?: string;
   exampleTranslation?: string;
-  synonyms?: string[];
-  antonyms?: string[];
-  lexileLevel?: number;
+  // 移除了同义词、反义词和蓝斯值字段，因为数据库模型中已删除这些字段
+  // synonyms?: string[];
+  // antonyms?: string[];
+  // lexileLevel?: number;
 }
 
 /**
@@ -137,8 +138,9 @@ export class DictionaryService {
       chineseTranslation: data.translation?.[0] || webTranslation[0] || word,
       exampleSentence: data.web?.[1]?.key || undefined,
       exampleTranslation: data.web?.[1]?.value?.[0] || undefined,
-      synonyms: undefined,
-      antonyms: undefined,
+      // 移除了同义词和反义词字段
+      // synonyms: undefined,
+      // antonyms: undefined,
     };
   }
 
@@ -179,8 +181,9 @@ export class DictionaryService {
       chineseTranslation: translation,
       exampleSentence: undefined,
       exampleTranslation: undefined,
-      synonyms: undefined,
-      antonyms: undefined,
+      // 移除了同义词和反义词字段
+      // synonyms: undefined,
+      // antonyms: undefined,
     };
   }
 
@@ -196,8 +199,9 @@ export class DictionaryService {
       chineseTranslation: `【待翻译】${word}`,
       exampleSentence: undefined,
       exampleTranslation: undefined,
-      synonyms: undefined,
-      antonyms: undefined,
+      // 移除了同义词和反义词字段
+      // synonyms: undefined,
+      // antonyms: undefined,
     };
   }
 

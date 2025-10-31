@@ -2,8 +2,6 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { PrismaService } from '../../common/prisma/prisma.service';
 import { CreateVocabularyDto, UpdateVocabularyDto, QueryVocabularyDto } from './dto';
 import { VocabularyEntity, VocabularyListEntity } from './entities/vocabulary.entity';
-import { ReviewRecordDto } from './dto/review-record.dto';
-import { VocabularyStatisticsDto } from './dto/vocabulary-statistics.dto';
 import { Prisma } from '@prisma/client';
 
 /**
@@ -44,15 +42,10 @@ export class VocabularyService {
         chineseTranslation: createVocabularyDto.chineseTranslation,
         exampleSentence: createVocabularyDto.exampleSentence,
         exampleTranslation: createVocabularyDto.exampleTranslation,
-        synonyms: createVocabularyDto.synonyms || [],
-        antonyms: createVocabularyDto.antonyms || [],
-        lexileLevel: createVocabularyDto.lexileLevel,
         sourceType: createVocabularyDto.sourceType,
         sourceChapterId: createVocabularyDto.sourceChapterId,
         sourceListeningId: createVocabularyDto.sourceListeningId,
         notes: createVocabularyDto.notes,
-        // 初始化遗忘曲线: 第一次复习在1天后
-        nextReviewAt: this.calculateNextReviewDate(0),
       },
     });
 
@@ -67,7 +60,6 @@ export class VocabularyService {
       search,
       partOfSpeech,
       sourceType,
-      mastered,
       startDate,
       endDate,
       page = 1,
@@ -99,10 +91,7 @@ export class VocabularyService {
       where.sourceType = sourceType;
     }
 
-    // 掌握状态筛选
-    if (mastered !== undefined) {
-      where.mastered = mastered;
-    }
+    // 移除了掌握状态筛选功能
 
     // 日期范围筛选
     if (startDate || endDate) {
@@ -164,11 +153,7 @@ export class VocabularyService {
     // 检查生词是否存在
     await this.findOne(userId, id);
 
-    // 如果标记为已掌握,设置掌握时间
     const updateData: Prisma.VocabularyUpdateInput = { ...updateVocabularyDto };
-    if (updateVocabularyDto.mastered && !updateVocabularyDto.masteredAt) {
-      updateData.masteredAt = new Date();
-    }
 
     // 更新生词
     const vocabulary = await this.prisma.vocabulary.update({
@@ -193,39 +178,27 @@ export class VocabularyService {
 
   /**
    * 标记复习
-   * 根据艾宾浩斯遗忘曲线计算下次复习时间
+   * 简化版本，只更新复习记录
    */
   async markReview(userId: string, id: string): Promise<VocabularyEntity> {
-    const vocabulary = await this.findOne(userId, id);
+    // 检查生词是否存在
+    await this.findOne(userId, id);
 
-    const reviewCount = vocabulary.reviewCount + 1;
-    const nextReviewAt = this.calculateNextReviewDate(reviewCount);
-
-    return await this.prisma.vocabulary.update({
-      where: { id },
-      data: {
-        reviewCount,
-        nextReviewAt,
-      },
-    });
+    // 简化版本：只返回生词信息，不再更新复习计数和下次复习时间
+    return this.findOne(userId, id);
   }
 
   /**
-   * 获取需要复习的生词列表
+   * 获取需要复习的生词列表（简化版本）
    */
   async getReviewList(userId: string, limit: number = 20): Promise<VocabularyEntity[]> {
-    const now = new Date();
-
+    // 简化版本：按创建时间排序获取最近的生词
     return await this.prisma.vocabulary.findMany({
       where: {
         userId,
-        mastered: false,
-        nextReviewAt: {
-          lte: now,
-        },
       },
       orderBy: {
-        nextReviewAt: 'asc',
+        createdAt: 'desc',
       },
       take: limit,
     });
@@ -254,15 +227,9 @@ export class VocabularyService {
    * 获取用户词汇统计
    */
   async getStats(userId: string) {
-    const [total, mastered, unmastered, byPartOfSpeech, bySourceType] = await Promise.all([
+    const [total, byPartOfSpeech, bySourceType] = await Promise.all([
       // 总单词数
       this.prisma.vocabulary.count({ where: { userId } }),
-
-      // 已掌握单词数
-      this.prisma.vocabulary.count({ where: { userId, mastered: true } }),
-
-      // 未掌握单词数
-      this.prisma.vocabulary.count({ where: { userId, mastered: false } }),
 
       // 按词性分组统计
       this.prisma.vocabulary.groupBy({
@@ -305,9 +272,9 @@ export class VocabularyService {
 
     return {
       total,
-      mastered,
-      unmastered,
-      masteryRate: total > 0 ? ((mastered / total) * 100).toFixed(2) : '0.00',
+      mastered: 0, // 掌握功能已移除，设为0
+      unmastered: total, // 所有单词都视为未掌握
+      masteryRate: '0.00', // 掌握率固定为0
       byPartOfSpeech: byPartOfSpeech.map((item) => ({
         partOfSpeech: item.partOfSpeech,
         count: item._count,
@@ -383,42 +350,24 @@ export class VocabularyService {
   /**
    * 记录复习
    */
-  async recordReview(userId: string, vocabularyId: string, data: ReviewRecordDto): Promise<VocabularyEntity> {
-    return this.prisma.vocabulary.update({
-      where: { id: vocabularyId, userId },
-      data: {
-        reviewCount: { increment: 1 },
-        updatedAt: new Date(),
-      },
-    });
+  async recordReview(userId: string, vocabularyId: string, _data: any): Promise<VocabularyEntity> {
+    // 简化版本：只返回生词信息，不再更新复习计数
+    return this.findOne(userId, vocabularyId);
   }
 
   /**
    * 获取统计信息
    */
-  async getStatistics(userId: string): Promise<VocabularyStatisticsDto> {
-    return this.getStatisticsData(userId);
-  }
-
-  /**
-   * 获取统计数据（内部方法）
-   */
-  private async getStatisticsData(userId: string): Promise<VocabularyStatisticsDto> {
+  async getStatistics(userId: string): Promise<any> {
     const total = await this.prisma.vocabulary.count({
       where: { userId },
     });
 
-    const mastered = await this.prisma.vocabulary.count({
-      where: { userId, mastered: true },
-    });
-
-    const unmastered = total - mastered;
-
     return {
       total,
-      mastered,
-      unmastered,
-      masteryRate: total > 0 ? ((mastered / total) * 100).toFixed(2) : '0.00',
+      mastered: 0, // 掌握功能已移除，设为0
+      unmastered: total, // 所有单词都视为未掌握
+      masteryRate: '0.00', // 掌握率固定为0
     };
   }
 }

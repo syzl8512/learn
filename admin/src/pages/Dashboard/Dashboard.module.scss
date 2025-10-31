@@ -1,0 +1,192 @@
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+
+  h2 {
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 0;
+  }
+}
+
+.statsRow {
+  margin-bottom: 32px;
+}
+
+.statCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  :global(.ant-card-body) {
+    padding: 24px;
+  }
+}
+
+.statIcon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.statDescription {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.contentRow {
+  margin-bottom: 32px;
+}
+
+.chartCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  height: 400px;
+
+  :global(.ant-card-head) {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  :global(.ant-card-head-title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+}
+
+.chartPlaceholder {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  color: #6b7280;
+
+  p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+}
+
+.quickActionsCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  :global(.ant-card-head) {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  :global(.ant-card-head-title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+}
+
+.quickActions {
+  width: 100%;
+}
+
+.quickAction {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #4b5563;
+
+  &:hover {
+    background-color: #f3f0ff;
+    color: #8b5cf6;
+  }
+}
+
+.actionIcon {
+  font-size: 18px;
+  margin-right: 12px;
+}
+
+.activityCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  :global(.ant-card-head) {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  :global(.ant-card-head-title) {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+}
+
+.activityPlaceholder {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  color: #6b7280;
+
+  p {
+    margin: 4px 0;
+    font-size: 14px;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .pageHeader {
+    margin-bottom: 24px;
+    text-align: center;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .statsRow {
+    margin-bottom: 24px;
+  }
+
+  .contentRow {
+    margin-bottom: 24px;
+  }
+
+  .chartCard {
+    height: 300px;
+  }
+
+  .chartPlaceholder {
+    height: 200px;
+  }
+}

@@ -1,0 +1,186 @@
+.versionComparison {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .headerInfo {
+      h4 {
+        margin: 0 0 8px 0;
+        color: #8B5CF6;
+      }
+    }
+
+    .swapButton {
+      border-color: #8B5CF6;
+      color: #8B5CF6;
+
+      &:hover {
+        background: #8B5CF6;
+        color: white;
+      }
+    }
+  }
+
+  .comparisonGrid {
+    margin-bottom: 24px;
+
+    .versionCard {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+      .ant-card-head {
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .versionHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .versionInfo {
+        .infoItem {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .ant-typography {
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .contentSection {
+    .contentComparisonWrapper {
+      border: 1px solid #f0f0f0;
+      border-radius: 8px;
+      overflow: hidden;
+
+      .columnHeader {
+        padding: 12px 16px;
+        background: #fafafa;
+        border-bottom: 1px solid #f0f0f0;
+
+        .ant-typography {
+          margin: 0;
+          color: #8B5CF6;
+        }
+      }
+
+      .contentComparison {
+        .paragraphComparison {
+          display: flex;
+          border-bottom: 1px solid #f0f0f0;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          .paragraphColumn {
+            flex: 1;
+            padding: 16px;
+            border-right: 1px solid #f0f0f0;
+
+            &:last-child {
+              border-right: none;
+            }
+
+            .paragraph {
+              margin: 0;
+              line-height: 1.6;
+              font-size: 14px;
+              color: #262626;
+            }
+
+            .emptyParagraph {
+              color: #999;
+              font-style: italic;
+              padding: 8px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .versionComparison {
+    .header {
+      flex-direction: column;
+      gap: 16px;
+
+      .ant-space {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .comparisonGrid {
+      .ant-row {
+        flex-direction: column;
+
+        .ant-col {
+          margin-bottom: 16px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .contentSection {
+      .contentComparisonWrapper {
+        .columnHeader {
+          .ant-row {
+            flex-direction: column;
+
+            .ant-col {
+              padding: 8px 16px;
+              border-bottom: 1px solid #f0f0f0;
+
+              &:last-child {
+                border-bottom: none;
+              }
+            }
+          }
+        }
+
+        .contentComparison {
+          .paragraphComparison {
+            flex-direction: column;
+
+            .paragraphColumn {
+              border-right: none;
+              border-bottom: 1px solid #f0f0f0;
+
+              &:last-child {
+                border-bottom: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

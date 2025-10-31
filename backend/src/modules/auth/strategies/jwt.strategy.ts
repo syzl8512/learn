@@ -8,7 +8,6 @@ export interface JwtPayload {
   sub: string; // userId
   email?: string;
   wechatId?: string;
-  role: string;
 }
 
 @Injectable()
@@ -33,9 +32,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         wechatId: true,
         nickname: true,
         avatar: true,
-        role: true,
-        lexileScore: true,
-        lexileLevel: true,
         createdAt: true,
       },
     });

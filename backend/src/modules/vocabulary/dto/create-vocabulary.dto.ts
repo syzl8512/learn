@@ -96,33 +96,11 @@ export class CreateVocabularyDto {
   @IsOptional()
   exampleTranslation?: string;
 
-  @ApiPropertyOptional({
-    description: '同义词列表',
-    type: [String],
-    example: ['desert', 'forsake', 'leave'],
-  })
-  @IsArray()
-  @IsString({ each: true })
-  @IsOptional()
-  synonyms?: string[];
-
-  @ApiPropertyOptional({
-    description: '反义词列表',
-    type: [String],
-    example: ['keep', 'maintain', 'continue'],
-  })
-  @IsArray()
-  @IsString({ each: true })
-  @IsOptional()
-  antonyms?: string[];
-
-  @ApiPropertyOptional({
-    description: '蓝斯值水平',
-    example: 850.0,
-  })
-  @IsNumber()
-  @IsOptional()
-  lexileLevel?: number;
+  // 移除了同义词、反义词和蓝斯值字段，因为数据库模型中已删除这些字段
+  // 这些字段现在不再支持
+  // synonyms?: string[];
+  // antonyms?: string[];
+  // lexileLevel?: number;
 
   @ApiPropertyOptional({
     description: '来源类型',

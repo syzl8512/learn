@@ -24,10 +24,6 @@ export class UserService {
         wechatId: true,
         nickname: true,
         avatar: true,
-        lexileScore: true,
-        lexileLevel: true,
-        lexileUpdatedAt: true,
-        role: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -47,11 +43,7 @@ export class UserService {
     // 检查用户是否存在
     await this.findOne(userId);
 
-    // 如果更新了蓝斯值，同时更新时间戳
     const updateData: Prisma.UserUpdateInput = { ...updateUserDto };
-    if (updateUserDto.lexileScore !== undefined || updateUserDto.lexileLevel !== undefined) {
-      updateData.lexileUpdatedAt = new Date();
-    }
 
     const user = await this.prisma.user.update({
       where: { id: userId },
@@ -62,10 +54,6 @@ export class UserService {
         wechatId: true,
         nickname: true,
         avatar: true,
-        lexileScore: true,
-        lexileLevel: true,
-        lexileUpdatedAt: true,
-        role: true,
         createdAt: true,
         updatedAt: true,
       },
@@ -75,17 +63,15 @@ export class UserService {
   }
 
   /**
-   * 更新用户蓝斯值
+   * 保留方法以保持兼容性，但不再使用
    */
   async updateLexile(
     userId: string,
-    lexileScore: number,
-    lexileLevel: string,
+    _lexileScore: number,
+    _lexileLevel: string,
   ): Promise<UserEntity> {
-    return this.update(userId, {
-      lexileScore,
-      lexileLevel,
-    });
+    // 蓝斯值功能已移除，直接返回用户信息
+    return this.findOne(userId);
   }
 
   /**
@@ -116,8 +102,6 @@ export class UserService {
         id: user.id,
         nickname: user.nickname,
         avatar: user.avatar,
-        lexileScore: user.lexileScore,
-        lexileLevel: user.lexileLevel,
       },
       stats: {
         vocabularyCount,

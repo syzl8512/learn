@@ -1,0 +1,262 @@
+.dictionaryManagement {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+
+  h2 {
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 0;
+  }
+}
+
+.actionBar {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.contentCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  :global(.ant-tabs-nav) {
+    margin-bottom: 0;
+    padding: 0 24px;
+  }
+
+  :global(.ant-tabs-content-holder) {
+    padding: 24px;
+  }
+}
+
+.vocabularyTable {
+  :global(.ant-table-thead > tr > th) {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  :global(.ant-table-tbody > tr > td) {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 16px;
+  }
+
+  :global(.ant-table-tbody > tr:hover > td) {
+    background-color: #f9fafb;
+  }
+}
+
+.wordInfo {
+  .word {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .phonetic {
+    color: #6b7280;
+    font-size: 12px;
+    font-style: italic;
+  }
+}
+
+.translation {
+  color: #374151;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.definition {
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.translationOptimization,
+.vocabularyLibraries,
+.analytics {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.optimizationPlaceholder,
+.librariesPlaceholder,
+.analyticsPlaceholder {
+  text-align: center;
+  max-width: 400px;
+
+  h3 {
+    color: #1f2937;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #6b7280;
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+}
+
+.importContent {
+  p {
+    color: #6b7280;
+    margin-bottom: 16px;
+  }
+}
+
+.importOptions {
+  margin-top: 24px;
+  padding: 16px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid #8b5cf6;
+
+  h4 {
+    margin: 0 0 12px 0;
+    color: #1f2937;
+    font-weight: 600;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #6b7280;
+    font-size: 14px;
+
+    li {
+      margin-bottom: 4px;
+    }
+  }
+}
+
+.uploadArea {
+  margin: 24px 0;
+
+  :global(.ant-upload-drag) {
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: #8b5cf6;
+      background-color: #f3f0ff;
+    }
+  }
+
+  :global(.ant-upload-drag-icon) {
+    color: #8b5cf6;
+    font-size: 48px;
+    margin-bottom: 16px;
+  }
+
+  :global(.ant-upload-text) {
+    color: #1f2937;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  :global(.ant-upload-hint) {
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .pageHeader {
+    margin-bottom: 24px;
+    text-align: center;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .actionBar {
+    margin-bottom: 16px;
+    padding: 16px;
+    text-align: center;
+
+    :global(.ant-space) {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+  }
+
+  .contentCard {
+    :global(.ant-tabs-nav) {
+      padding: 0 16px;
+    }
+
+    :global(.ant-tabs-content-holder) {
+      padding: 16px;
+    }
+  }
+
+  .vocabularyTable {
+    :global(.ant-table) {
+      font-size: 12px;
+    }
+
+    :global(.ant-table-thead > tr > th),
+    :global(.ant-table-tbody > tr > td) {
+      padding: 8px;
+    }
+  }
+
+  .wordInfo {
+    .word {
+      font-size: 13px;
+    }
+
+    .phonetic {
+      font-size: 11px;
+    }
+  }
+
+  .translation {
+    font-size: 12px;
+  }
+
+  .definition {
+    font-size: 11px;
+  }
+
+  .optimizationPlaceholder,
+  .librariesPlaceholder,
+  .analyticsPlaceholder {
+    padding: 0 16px;
+
+    h3 {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+}

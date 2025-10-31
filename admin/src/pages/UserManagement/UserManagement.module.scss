@@ -1,0 +1,64 @@
+.userManagement {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+
+  h2 {
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 0;
+  }
+}
+
+.actionBar {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.userTableCard {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  :global(.ant-table-thead > tr > th) {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  :global(.ant-table-tbody > tr > td) {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 16px;
+  }
+
+  :global(.ant-table-tbody > tr:hover > td) {
+    background-color: #f9fafb;
+  }
+}
+
+.userInfo {
+  .username {
+    font-weight: 500;
+    color: #1f2937;
+    margin-bottom: 4px;
+    font-size: 14px;
+  }
+
+  .email {
+    color: #6b7280;
+    font-size: 12px;
+  }
+}

@@ -12,9 +12,6 @@ export class UserPayload {
 
   @ApiProperty({ description: '用户昵称', required: false })
   nickname?: string;
-
-  @ApiProperty({ description: '用户角色' })
-  role: string;
 }
 
 export class AuthResponseDto {

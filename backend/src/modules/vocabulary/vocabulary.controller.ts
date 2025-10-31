@@ -14,10 +14,9 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@ne
 import { VocabularyService } from './vocabulary.service';
 import { VocabularyExportService } from './vocabulary-export.service';
 import { DictionaryService } from './dictionary.service';
-import { VocabularyDifficultyService } from './vocabulary-difficulty.service';
 import { CreateVocabularyDto, UpdateVocabularyDto, QueryVocabularyDto } from './dto';
 import { LookupWordDto } from './dto/lookup-word.dto';
-import { AnalyzeTextDto, AnalyzeTextResponseDto } from './dto/highlight.dto';
+// 移除了已删除的 highlight.dto 导入
 import { VocabularyEntity } from './entities/vocabulary.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -36,7 +35,6 @@ export class VocabularyController {
     private readonly vocabularyService: VocabularyService,
     private readonly vocabularyExportService: VocabularyExportService,
     private readonly dictionaryService: DictionaryService,
-    private readonly vocabularyDifficultyService: VocabularyDifficultyService,
   ) {}
 
   /**
@@ -199,47 +197,5 @@ export class VocabularyController {
   async getExportStats(@CurrentUser('sub') userId: string, @Query() query: QueryVocabularyDto) {
     this.logger.log(`获取导出统计: ${userId}`);
     return this.vocabularyExportService.getExportStats(userId, query);
-  }
-
-  /**
-   * 智能词汇高亮分析
-   */
-  @Post('analyze-highlight')
-  @ApiOperation({ summary: '分析文本词汇难度并返回高亮信息' })
-  @ApiResponse({
-    status: 200,
-    description: '分析成功',
-    type: AnalyzeTextResponseDto,
-  })
-  async analyzeTextHighlight(@Body() dto: AnalyzeTextDto): Promise<AnalyzeTextResponseDto> {
-    this.logger.log(`分析文本词汇高亮: ${dto.text.substring(0, 50)}...`);
-
-    const results = await this.vocabularyDifficultyService.analyzeTextDifficulty(dto.text, {
-      userLexile: dto.config.userLexile,
-      highlightMode: dto.config.highlightMode,
-      customThreshold: dto.config.customThreshold,
-      showTooltips: dto.config.showTooltips || false,
-      highlightColors: {
-        easy: '#c8e6c9', // 浅绿色
-        intermediate: '#fff3e0', // 浅橙色
-        advanced: '#ffebee', // 浅红色
-        expert: '#f3e5f5', // 浅紫色
-      },
-    });
-
-    // 统计信息
-    const stats = {
-      totalWords: results.length,
-      highlightedWords: results.filter((r) => r.shouldHighlight).length,
-      easyWords: results.filter((r) => r.difficulty === 'easy').length,
-      intermediateWords: results.filter((r) => r.difficulty === 'intermediate').length,
-      advancedWords: results.filter((r) => r.difficulty === 'advanced').length,
-      expertWords: results.filter((r) => r.difficulty === 'expert').length,
-    };
-
-    return {
-      results,
-      stats,
-    };
   }
 }

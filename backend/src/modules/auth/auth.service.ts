@@ -41,7 +41,6 @@ export class AuthService {
         data: {
           email,
           nickname: nickname || email.split('@')[0],
-          role: 'student',
         },
       });
 
@@ -92,7 +91,6 @@ export class AuthService {
       user = await this.prisma.user.create({
         data: {
           wechatId: openid,
-          role: 'student',
         },
       });
     }
@@ -127,7 +125,6 @@ export class AuthService {
       sub: user.id,
       email: user.email || undefined,
       wechatId: user.wechatId || undefined,
-      role: user.role,
     };
 
     const accessToken = this.jwtService.sign(payload, {
@@ -145,7 +142,6 @@ export class AuthService {
       email: user.email || undefined,
       wechatId: user.wechatId || undefined,
       nickname: user.nickname || undefined,
-      role: user.role,
     };
 
     return {

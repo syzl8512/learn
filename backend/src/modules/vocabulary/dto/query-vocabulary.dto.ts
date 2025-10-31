@@ -19,9 +19,10 @@ export enum SortField {
   CREATED_AT = 'createdAt',
   UPDATED_AT = 'updatedAt',
   WORD = 'word',
-  MASTERED_AT = 'masteredAt',
-  NEXT_REVIEW_AT = 'nextReviewAt',
-  REVIEW_COUNT = 'reviewCount',
+  // 移除了掌握相关字段，因为数据库模型中已删除这些字段
+  // MASTERED_AT = 'masteredAt',
+  // NEXT_REVIEW_AT = 'nextReviewAt',
+  // REVIEW_COUNT = 'reviewCount',
 }
 
 /**
@@ -63,14 +64,8 @@ export class QueryVocabularyDto {
   @IsOptional()
   sourceType?: SourceType;
 
-  @ApiPropertyOptional({
-    description: '是否已掌握筛选',
-    example: false,
-  })
-  @IsBoolean()
-  @Type(() => Boolean)
-  @IsOptional()
-  mastered?: boolean;
+  // 移除了掌握状态筛选字段，因为数据库模型中已删除这些字段
+  // mastered?: boolean;
 
   @ApiPropertyOptional({
     description: '开始日期 (ISO 8601格式)',

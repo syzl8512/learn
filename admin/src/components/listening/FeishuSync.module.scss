@@ -1,0 +1,186 @@
+.feishuSync {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.configCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  .titleIcon {
+    color: #8B5CF6;
+    margin-right: 8px;
+  }
+
+  .steps {
+    margin-top: 32px;
+
+    :global(.ant-steps-item-finish .ant-steps-item-icon) {
+      background-color: #8B5CF6;
+      border-color: #8B5CF6;
+    }
+
+    :global(.ant-steps-item-process .ant-steps-item-icon) {
+      background-color: #8B5CF6;
+      border-color: #8B5CF6;
+    }
+
+    :global(.ant-steps-item-finish .ant-steps-item-icon .ant-steps-icon) {
+      color: #fff;
+    }
+  }
+}
+
+.stepCard {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+
+  h4 {
+    color: #1f2937;
+    margin-bottom: 16px;
+
+    .anticon {
+      margin-right: 8px;
+    }
+  }
+
+  .successIcon {
+    color: #52c41a;
+    margin-right: 8px;
+  }
+
+  .ant-form {
+    .ant-form-item {
+      margin-bottom: 16px;
+
+      .ant-form-item-label > label {
+        font-weight: 500;
+        color: #374151;
+      }
+    }
+
+    .ant-input,
+    .ant-input-password,
+    .ant-select-selector {
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      transition: all 0.3s ease;
+
+      &:hover,
+      &:focus {
+        border-color: #8B5CF6;
+        box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+      }
+    }
+
+    .ant-btn {
+      border-radius: 8px;
+      height: 36px;
+      font-weight: 500;
+
+      &.ant-btn-primary {
+        background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+        border: none;
+
+        &:hover {
+          background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+        }
+      }
+    }
+  }
+
+  .previewTable {
+    :global(.ant-table-thead > tr > th) {
+      background-color: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      font-weight: 600;
+      color: #1f2937;
+    }
+
+    :global(.ant-table-tbody > tr > td) {
+      border-bottom: 1px solid #f3f4f6;
+      padding: 12px;
+    }
+
+    :global(.ant-table-tbody > tr:hover > td) {
+      background-color: #f9fafb;
+    }
+  }
+
+  .ant-statistic {
+    text-align: center;
+
+    .ant-statistic-title {
+      font-size: 14px;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .ant-statistic-content {
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
+
+  .ant-alert {
+    border-radius: 8px;
+
+    &.ant-alert-info {
+      background-color: #f0f9ff;
+      border-color: #8B5CF6;
+    }
+
+    &.ant-alert-success {
+      background-color: #f0fdf4;
+      border-color: #52c41a;
+    }
+
+    &.ant-alert-warning {
+      background-color: #fffbeb;
+      border-color: #faad14;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .feishuSync {
+    margin: 0 16px;
+  }
+
+  .configCard {
+    .steps {
+      :global(.ant-steps-item-title) {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .stepCard {
+    .ant-form {
+      .ant-row {
+        flex-direction: column;
+
+        .ant-col {
+          width: 100% !important;
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    .previewTable {
+      :global(.ant-table) {
+        font-size: 12px;
+      }
+
+      :global(.ant-table-thead > tr > th),
+      :global(.ant-table-tbody > tr > td) {
+        padding: 8px;
+      }
+    }
+  }
+}

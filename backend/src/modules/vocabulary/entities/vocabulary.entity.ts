@@ -66,28 +66,7 @@ export class VocabularyEntity implements Vocabulary {
   })
   exampleTranslation: string | null;
 
-  @ApiPropertyOptional({
-    description: '同义词列表',
-    type: [String],
-    example: ['desert', 'forsake', 'leave'],
-    nullable: true,
-  })
-  synonyms: Prisma.JsonValue;
-
-  @ApiPropertyOptional({
-    description: '反义词列表',
-    type: [String],
-    example: ['keep', 'maintain', 'continue'],
-    nullable: true,
-  })
-  antonyms: Prisma.JsonValue;
-
-  @ApiPropertyOptional({
-    description: '蓝斯值水平',
-    example: 850.0,
-    nullable: true,
-  })
-  lexileLevel: number | null;
+  // 移除了同义词、反义词和蓝斯值字段
 
   @ApiPropertyOptional({
     description: '来源类型',
@@ -110,31 +89,7 @@ export class VocabularyEntity implements Vocabulary {
   })
   sourceListeningId: string | null;
 
-  @ApiProperty({
-    description: '是否已掌握',
-    example: false,
-  })
-  mastered: boolean;
-
-  @ApiPropertyOptional({
-    description: '掌握时间',
-    example: '2025-10-26T10:00:00.000Z',
-    nullable: true,
-  })
-  masteredAt: Date | null;
-
-  @ApiPropertyOptional({
-    description: '下次复习时间',
-    example: '2025-10-27T10:00:00.000Z',
-    nullable: true,
-  })
-  nextReviewAt: Date | null;
-
-  @ApiProperty({
-    description: '复习次数',
-    example: 3,
-  })
-  reviewCount: number;
+  // 移除了掌握相关字段（mastered, masteredAt, nextReviewAt, reviewCount）
 
   @ApiPropertyOptional({
     description: '用户自定义笔记',

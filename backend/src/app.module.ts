@@ -7,16 +7,12 @@ import { PrismaModule } from './common/prisma/prisma.module';
 
 // 业务模块
 import { AuthModule } from './modules/auth/auth.module';
-import { AdminModule } from './modules/admin/admin.module';
 import { UserModule } from './modules/user/user.module';
 import { BookModule } from './modules/book/book.module';
 import { ChapterModule } from './modules/chapter/chapter.module';
-import { LexileModule } from './modules/lexile/lexile.module';
 import { TtsModule } from './modules/tts/tts.module';
 import { VocabularyModule } from './modules/vocabulary/vocabulary.module';
 import { ProgressModule } from './modules/progress/progress.module';
-import { StatsModule } from './modules/stats/stats.module';
-import { AnalyticsModule } from './modules/analytics/analytics.module';
 // import { ListeningModule } from './modules/listening/listening.module'; // Temporarily disabled
 
 // AI 服务模块
@@ -61,17 +57,13 @@ import { HealthModule } from './health/health.module';
 
     // 业务模块
     AuthModule,
-    AdminModule,
     UserModule,
     BookModule,
     ChapterModule,
-    LexileModule,
-    TtsModule,
+      TtsModule,
     VocabularyModule,
     ProgressModule,
-    StatsModule,
-    AnalyticsModule,
-    // ListeningModule, // Temporarily disabled
+      // ListeningModule, // Temporarily disabled
 
     // AI 服务模块
     ModelScopeModule,

@@ -1,0 +1,83 @@
+// 导入变量
+@import 'variables';
+
+// 重置样式
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $text-primary;
+  background-color: $bg-secondary;
+}
+
+// 通用类
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+}
+
+.page-container {
+  min-height: 100vh;
+  background-color: $bg-secondary;
+}
+
+.page-header {
+  background-color: $bg-primary;
+  padding: $spacing-lg;
+  box-shadow: $shadow-sm;
+  border-bottom: 1px solid $border-color;
+}
+
+.page-content {
+  padding: $spacing-lg;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: $text-primary;
+  margin-bottom: $spacing-md;
+}
+
+// 卡片样式
+.card {
+  background-color: $bg-primary;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-sm;
+  border: 1px solid $border-color;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+// 按钮样式扩展
+.el-button--primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover {
+    background-color: $primary-dark;
+    border-color: $primary-dark;
+  }
+}
+
+// 响应式设计
+@media (max-width: $breakpoint-sm) {
+  .container {
+    padding: 0 $spacing-sm;
+  }
+
+  .page-header {
+    padding: $spacing-md;
+  }
+
+  .page-content {
+    padding: $spacing-md;
+  }
+}

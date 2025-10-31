@@ -12,18 +12,7 @@ export class UpdateUserDto {
   @IsString()
   avatar?: string;
 
-  @ApiPropertyOptional({ description: '蓝斯值', minimum: 200, maximum: 1700 })
-  @IsOptional()
-  @IsNumber()
-  @Min(200)
-  @Max(1700)
-  lexileScore?: number;
-
-  @ApiPropertyOptional({
-    description: '蓝斯值等级',
-    enum: ['初级', 'KET', 'PET', '自定义'],
-  })
-  @IsOptional()
-  @IsString()
-  lexileLevel?: string;
+  // 移除了蓝斯值相关字段，因为用户模型中已删除这些字段
+  // lexileScore?: number;
+  // lexileLevel?: string;
 }

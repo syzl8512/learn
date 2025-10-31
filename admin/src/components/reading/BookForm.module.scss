@@ -1,0 +1,162 @@
+.bookForm {
+  .formHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+
+    .headerIcon {
+      font-size: 24px;
+      color: #8B5CF6;
+      margin-right: 12px;
+    }
+
+    .headerTitle {
+      margin: 0;
+      color: #262626;
+    }
+  }
+
+  .form {
+    .formSection {
+      margin-bottom: 24px;
+
+      .sectionTitle {
+        color: #8B5CF6;
+        margin-bottom: 16px;
+        font-weight: 600;
+      }
+    }
+
+    .ant-form-item {
+      margin-bottom: 20px;
+
+      .ant-form-item-label > label {
+        font-weight: 500;
+        color: #262626;
+      }
+
+      .ant-input,
+      .ant-input-number,
+      .ant-select-selector,
+      .ant-picker {
+        border-radius: 6px;
+        border: 1px solid #d9d9d9;
+        transition: all 0.3s;
+
+        &:hover {
+          border-color: #8B5CF6;
+        }
+      }
+
+      .ant-input:focus,
+      .ant-input-number:focus,
+      .ant-select-focused .ant-select-selector,
+      .ant-picker:focus {
+        border-color: #8B5CF6;
+        box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+      }
+
+      .ant-input-affix-wrapper {
+        border-radius: 6px;
+
+        &:hover {
+          border-color: #8B5CF6;
+        }
+
+        &:focus,
+        &.ant-input-affix-wrapper-focused {
+          border-color: #8B5CF6;
+          box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+        }
+      }
+
+      .ant-input-number {
+        width: 100%;
+      }
+
+      .ant-select-dropdown {
+        .ant-select-item-option-content {
+          > div {
+            > div:first-child {
+              font-weight: 500;
+            }
+
+            > div:last-child {
+              font-size: 12px;
+              color: #666;
+              margin-top: 2px;
+            }
+          }
+        }
+      }
+
+      .ant-form-item-extra {
+        font-size: 12px;
+        color: #666;
+        margin-top: 4px;
+      }
+    }
+
+    .formActions {
+      text-align: center;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+
+      .submitButton {
+        background: #8B5CF6;
+        border-color: #8B5CF6;
+        height: 40px;
+        padding: 0 32px;
+        font-weight: 500;
+        border-radius: 6px;
+
+        &:hover {
+          background: #7c3aed;
+          border-color: #7c3aed;
+        }
+      }
+
+      .cancelButton {
+        height: 40px;
+        padding: 0 32px;
+        font-weight: 500;
+        border-radius: 6px;
+
+        &:hover {
+          color: #8B5CF6;
+          border-color: #8B5CF6;
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .bookForm {
+    .formHeader {
+      flex-direction: column;
+      text-align: center;
+      gap: 12px;
+
+      .headerIcon {
+        margin-right: 0;
+      }
+    }
+
+    .form {
+      .formActions {
+        .ant-space {
+          flex-direction: column;
+          width: 100%;
+
+          .ant-btn {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.layout {
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.mainLayout {
+  transition: margin-left 0.2s;
+}
+
+.content {
+  margin: 0;
+  min-height: calc(100vh - 64px);
+  background-color: #f9fafb;
+  overflow: auto;
+}
+
+.contentWrapper {
+  padding: 24px;
+  min-height: 100%;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contentWrapper {
+    padding: 12px;
+  }
+}
